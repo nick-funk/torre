@@ -1,0 +1,17 @@
+﻿@{
+    Html.RenderAction("Map", "Map");
+}
+
+@section scripts
+{
+    <script>
+        var map = L.map('map',
+            {
+                center: [51.041321, -114.071415],
+                zoom: 15
+            });
+
+        var googleLayer = new L.Google("ROADMAP");
+        map.addLayer(googleLayer);
+    </script>
+}
