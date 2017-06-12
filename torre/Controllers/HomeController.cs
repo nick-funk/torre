@@ -16,8 +16,6 @@ namespace torre.Controllers
 
         public ActionResult Contact()
         {
-            this.ViewBag.Message = "Your contact page.";
-
             return this.View();
         }
     }
