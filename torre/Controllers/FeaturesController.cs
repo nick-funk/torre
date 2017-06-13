@@ -5,6 +5,7 @@
     using AutoMapper;
     using domain.Repositories.Map;
     using Models;
+    using Newtonsoft.Json;
 
     public class FeaturesController : Controller
     {
@@ -24,6 +25,13 @@
             {
                 Markers = this.mapper.Map<ICollection<MarkerViewModel>>(this.markerRepository.All())
             });
+        }
+
+        [HttpGet]
+        public JsonResult Markers()
+        {
+            return this.Json(this.mapper.Map<IEnumerable<MarkerViewModel>>(this.markerRepository.All()),
+                JsonRequestBehavior.AllowGet);
         }
     }
 }
