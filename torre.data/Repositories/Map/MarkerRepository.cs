@@ -19,7 +19,8 @@
 
         public void Add(Marker marker)
         {
-            
+            this.context.Markers.Add(this.mapper.Map<Models.Map.Marker>(marker));
+            this.context.SaveChanges();
         }
 
         public void Remove(Marker marker)

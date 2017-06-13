@@ -32,6 +32,7 @@
             {
                 cfg.AddProfile<GeographyMappingProfile>();
                 cfg.AddProfile<MarkerMappingProfile>();
+                cfg.AddProfile<Mappings.Features.MarkerMappingProfile>();
             }));
 
             builder.Register(c => mapper).As<IMapper>();

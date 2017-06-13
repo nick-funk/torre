@@ -11,9 +11,12 @@
             this.CreateMap<DbGeography, Point>()
                 .ConstructUsing(src => new Point
                 {
-                    X = src.Longitude ?? 0,
-                    Y = src.Latitude ?? 0
+                    Longitude = src.Longitude ?? 0,
+                    Latitude = src.Latitude ?? 0
                 });
+
+            this.CreateMap<Point, DbGeography>()
+                .ConstructUsing(src => DbGeography.PointFromText($"POINT({src.Longitude} {src.Latitude})", 4326));
         }
     }
 }

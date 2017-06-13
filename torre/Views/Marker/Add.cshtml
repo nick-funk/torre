@@ -1,0 +1,33 @@
+﻿@model torre.Models.MarkerAddModel
+    
+<div class="page-header">
+    <h3>Add Marker</h3>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Longitude)
+            @Html.TextBoxFor(m => m.Longitude, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Latitude)
+            @Html.TextBoxFor(m => m.Latitude, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <input type="submit" class="btn btn-default" value="Add" />
+    
+    <a href="@Url.Action("Index", "Features")">Cancel</a>
+}
