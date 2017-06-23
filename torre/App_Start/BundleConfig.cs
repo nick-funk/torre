@@ -27,10 +27,14 @@ namespace torre
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/ts")
+                .Include("~/Scripts/T4TS.d.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/home")
+                .IncludeDirectory("~/Scripts/Home", "*.js", true));
+
             bundles.Add(new ScriptBundle("~/bundles/mapping")
-                .Include("~/Scripts/leaflet-0.7.3.js")
-                .Include("~/Scripts/maps-google.js")
-                .Include("~/Scripts/leaflet-google.js"));
+                .Include("~/Scripts/leaflet-0.7.3.js"));
         }
 
         private static void CreateStyleBundles(BundleCollection bundles)

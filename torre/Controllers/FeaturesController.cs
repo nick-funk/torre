@@ -5,7 +5,6 @@
     using AutoMapper;
     using domain.Repositories.Map;
     using Models;
-    using Newtonsoft.Json;
 
     public class FeaturesController : Controller
     {

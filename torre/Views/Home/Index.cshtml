@@ -6,40 +6,8 @@
 
 @section scripts
 {
+    <script src="@Url.Content("~/Scripts/Home/Map/Index.js")"></script>
     <script>
-        var markerIcon = L.icon({
-            iconUrl: '/content/images/marker-icon-2x.png',
-            shadowUrl: '/content/images/marker-shadow.png',
-
-            iconSize: [25, 40], // size of the icon
-            shadowSize: [25, 40], // size of the shadow
-            iconAnchor: [12, 40], // point of the icon which will correspond to marker's location
-            shadowAnchor: [7, 40],  // the same for the shadow
-            popupAnchor: [-5, -75] // point from which the popup should open relative to the iconAnchor
-        });
-
-        var map = L.map('map',
-            {
-                center: [51.053952, -114.070596],
-                zoom: 15
-            });
-
-        var layer = L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-            {
-                attribution:
-                    '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
-            }).addTo(map);
-
-        $.ajax({
-            url: '/features/markers',
-            datatype: "json",
-            success: function (data) {
-                for (var i in data) {
-                    var marker = data[i];
-                    var position = new L.LatLng(marker.Latitude, marker.Longitude);
-                    L.marker(position, { icon: markerIcon }).addTo(map);
-                }
-            }
-        });
+        var viewModel = new torre.Home.Map.Index();
     </script>
 }
