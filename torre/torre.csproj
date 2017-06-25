@@ -175,12 +175,6 @@
     <Content Include="Content\card.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\images\layers-2x.png" />
-    <Content Include="Content\images\layers.png" />
-    <Content Include="Content\images\marker-icon-2x.png" />
-    <Content Include="Content\images\marker-icon.png" />
-    <Content Include="Content\images\marker-shadow.png" />
-    <Content Include="Content\leaflet.css" />
     <Content Include="Content\map.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -203,6 +197,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Google\maps.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -210,8 +205,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\leaflet-0.7.3.js" />
-    <Content Include="Scripts\leaflet-0.7.3.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -262,8 +255,8 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\Home\Map\Index.ts" />
+    <TypeScriptCompile Include="Scripts\typings\googlemaps\google.maps.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\leaflet\leaflet.d.ts" />
     <TypeScriptCompile Include="T4TS.d.ts">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

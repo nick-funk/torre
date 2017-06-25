@@ -34,6 +34,7 @@ namespace torre
                 .IncludeDirectory("~/Scripts/Home", "*.js", true));
 
             bundles.Add(new ScriptBundle("~/bundles/mapping")
+                .Include("~/Scripts/Google/maps.js")
                 .Include("~/Scripts/leaflet-0.7.3.js"));
         }
 

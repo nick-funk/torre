@@ -3,7 +3,8 @@
     import MarkerViewModel = T4TS.MarkerViewModel;
 
     export class Index {
-        private map: L.Map;
+        private map: google.maps.Map;
+        private infoWindow: google.maps.InfoWindow;
 
         constructor() {
             this.loadMap();
@@ -11,43 +12,32 @@
 
         private loadMap(): void {
 
-            var iconOptions = {
-                iconUrl: "/content/images/marker-icon-2x.png",
-                shadowUrl: "/content/images/marker-shadow.png",
+            var calgary = { lat: 51.053952, lng: -114.070596 };
+            this.map = new google.maps.Map(document.getElementById('map'), { zoom: 4, center: calgary });
 
-                iconSize: [25, 40],
-                shadowSize: [25, 40],
-                iconAnchor: [12, 40],
-                shadowAnchor: [7, 40],
-                popupAnchor: [0, -40]
-            };
-
-            var iconInstance = new L.Icon((iconOptions) as any);
-            var markerOptions = {
-                icon: iconInstance
-            };
-
-            this.map = L.map('map');
-
-            var layer = L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-                {
-                    attribution:
-                        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
-                });
-            layer.addTo(this.map);
+            this.infoWindow = new google.maps.InfoWindow();
 
             $.ajax("/features/markers",
                 {
                     success: (markers: any) => {
+
                         for (var i in markers) {
                             var markerViewModel = markers[i] as MarkerViewModel;
-                            var position = new L.LatLng(markerViewModel.Latitude, markerViewModel.Longitude);
 
-                            var marker = new L.Marker(position, markerOptions);
-                            marker.addTo(this.map).bindPopup("<b>" + markerViewModel.Name + "</b>").openPopup();
+                            var content = "<h3>" + markerViewModel.Name + "</h3>";
+
+                            var marker = new google.maps.Marker({
+                                position: { lat: markerViewModel.Latitude, lng: markerViewModel.Longitude },
+                                map: this.map
+                            });
+
+                            google.maps.event.addListener(marker, 'click', ((marker, content, infoWindow) =>
+                                () => {
+                                    infoWindow.close();
+                                    infoWindow.setContent(content);
+                                    infoWindow.open(this.map, marker);
+                                })(marker, content, this.infoWindow));  
                         }
-
-                        this.map.setView(new L.LatLng(51.053952, -114.070596), 15);
                     }
                 });
         }
