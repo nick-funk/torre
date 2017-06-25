@@ -1,28 +1,20 @@
-﻿using System.Web.Mvc;
-
-namespace torre.Controllers
+﻿namespace torre.Controllers
 {
-    using System.Collections.Generic;
-    using AutoMapper;
-    using domain.Repositories.Map;
+    using System.Web.Mvc;
     using Models;
 
     public class HomeController : Controller
     {
-        private readonly IMarkerRepository markerRepository;
-        private readonly IMapper mapper;
-
-        public HomeController(IMarkerRepository markerRepository, IMapper mapper)
-        {
-            this.markerRepository = markerRepository;
-            this.mapper = mapper;
-        }
-
         public ActionResult Index()
         {
-            return this.View(new MarkerIndexModel
+            return this.View(new MapViewModel
             {
-                Markers = this.mapper.Map<ICollection<MarkerViewModel>>(this.markerRepository.All())
+                Center = new Coordinate
+                {
+                    Latitude = 51.053952,
+                    Longitude = -114.070596
+                },
+                Zoom = 15
             });
         }
 

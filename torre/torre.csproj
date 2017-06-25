@@ -162,6 +162,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mappings\Features\MarkerMappingProfile.cs" />
+    <Compile Include="Models\Coordinate.cs" />
+    <Compile Include="Models\MapViewModel.cs" />
     <Compile Include="Models\MarkerAddModel.cs" />
     <Compile Include="Models\MarkerIndexModel.cs" />
     <Compile Include="Models\MarkerViewModel.cs" />

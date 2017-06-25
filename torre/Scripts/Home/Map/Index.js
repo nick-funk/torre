@@ -5,13 +5,13 @@ var torre;
         var Map;
         (function (Map) {
             var Index = (function () {
-                function Index() {
-                    this.loadMap();
+                function Index(center, zoom) {
+                    this.loadMap(center, zoom);
                 }
-                Index.prototype.loadMap = function () {
+                Index.prototype.loadMap = function (center, zoom) {
                     var _this = this;
-                    var calgary = { lat: 51.053952, lng: -114.070596 };
-                    this.map = new google.maps.Map(document.getElementById('map'), { zoom: 4, center: calgary });
+                    var calgary = { lat: center.Latitude, lng: center.Longitude };
+                    this.map = new google.maps.Map(document.getElementById('map'), { zoom: zoom, center: calgary });
                     this.infoWindow = new google.maps.InfoWindow();
                     $.ajax("/features/markers", {
                         success: function (markers) {
@@ -39,3 +39,4 @@ var torre;
         })(Map = Home.Map || (Home.Map = {}));
     })(Home = torre.Home || (torre.Home = {}));
 })(torre || (torre = {}));
+//# sourceMappingURL=Index.js.map

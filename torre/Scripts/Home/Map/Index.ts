@@ -1,19 +1,20 @@
 ﻿namespace torre.Home.Map {
 
     import MarkerViewModel = T4TS.MarkerViewModel;
+    import Coordinate = T4TS.Coordinate;
 
     export class Index {
         private map: google.maps.Map;
         private infoWindow: google.maps.InfoWindow;
 
-        constructor() {
-            this.loadMap();
+        constructor(center: Coordinate, zoom: number) {
+            this.loadMap(center, zoom);
         }
 
-        private loadMap(): void {
+        private loadMap(center: Coordinate, zoom: number): void {
 
-            var calgary = { lat: 51.053952, lng: -114.070596 };
-            this.map = new google.maps.Map(document.getElementById('map'), { zoom: 4, center: calgary });
+            var calgary = { lat: center.Latitude, lng: center.Longitude };
+            this.map = new google.maps.Map(document.getElementById('map'), { zoom: zoom, center: calgary });
 
             this.infoWindow = new google.maps.InfoWindow();
 

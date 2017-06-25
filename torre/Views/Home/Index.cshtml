@@ -1,4 +1,4 @@
-﻿@model torre.Models.MarkerIndexModel
+﻿@model torre.Models.MapViewModel
 
 <div class="row">
     <div id="map" class="map col-lg-12"></div>
@@ -8,6 +8,8 @@
 {
     <script src="@Url.Content("~/Scripts/Home/Map/Index.js")"></script>
     <script>
-        var viewModel = new torre.Home.Map.Index();
+        var viewModel = new torre.Home.Map.Index(
+            { Latitude: @(Model.Center.Latitude), Longitude: @(Model.Center.Longitude) }, @(Model.Zoom)
+        );
     </script>
 }
