@@ -178,6 +178,10 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\map.css" />
+    <Content Include="Content\UIKit\uikit-rtl.css" />
+    <Content Include="Content\UIKit\uikit-rtl.min.css" />
+    <Content Include="Content\UIKit\uikit.css" />
+    <Content Include="Content\UIKit\uikit.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -210,6 +214,10 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\UIKit\uikit-icons.js" />
+    <Content Include="Scripts\UIKit\uikit-icons.min.js" />
+    <Content Include="Scripts\UIKit\uikit.js" />
+    <Content Include="Scripts\UIKit\uikit.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="T4TS.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

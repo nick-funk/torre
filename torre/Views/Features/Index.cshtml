@@ -1,22 +1,22 @@
 ﻿@model torre.Models.MarkerIndexModel
 
-<div class="page-header">
-    <a href="@Url.Action("Add", "Marker")" class="btn btn-default pull-right">
+<div>
+    <a href="@Url.Action("Add", "Marker")" class="uk-button uk-button-default uk-float-right">
         <i class="fa fa-plus"></i>
     </a>
-    <h3>Markers</h3>
+    <h2 class="uk-heading-divider">Markers</h2>
 </div>
 
-<div class="container">
-    <div class="row">
+<div class="row">
+    <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
         @foreach (var marker in Model.Markers)
         {
-            <div class="card col-md-4">
-                <div class="card-block">
-                    <div class="card-title">
+            <div>
+                <div class="uk-card uk-card-default uk-card-hover uk-card-body">
+                    <div class="uk-card-title">
                         @marker.Name
                     </div>
-                    <div class="card-text">
+                    <div>
                         @marker.Longitude , @marker.Latitude
                     </div>
                 </div>

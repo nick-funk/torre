@@ -8,8 +8,8 @@
 {
     <script src="@Url.Content("~/Scripts/Home/Map/Index.js")"></script>
     <script>
-        var viewModel = new torre.Home.Map.Index(
-            { Latitude: @(Model.Center.Latitude), Longitude: @(Model.Center.Longitude) }, @(Model.Zoom)
-        );
+        var viewModel =
+            new torre.Home.Map.Index({ Latitude: @(Model.Center.Latitude), Longitude: @(Model.Center.Longitude) },
+                @(Model.Zoom));
     </script>
 }

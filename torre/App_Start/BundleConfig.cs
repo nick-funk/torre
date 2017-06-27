@@ -36,6 +36,10 @@ namespace torre
             bundles.Add(new ScriptBundle("~/bundles/mapping")
                 .Include("~/Scripts/Google/maps.js")
                 .Include("~/Scripts/leaflet-0.7.3.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/UIKit")
+                .Include("~/Scripts/UIKit/uikit.js")
+                .Include("~/Scripts/UIKit/uikit-icons.js"));
         }
 
         private static void CreateStyleBundles(BundleCollection bundles)
@@ -49,6 +53,9 @@ namespace torre
             bundles.Add(new StyleBundle("~/Content/mapping")
                 .Include("~/Content/map.css")
                 .Include("~/Content/leaflet.css"));
+
+            bundles.Add(new StyleBundle("~/Content/UIKit")
+                .Include("~/Content/UIKit/uikit.css"));
         }
     }
 }
