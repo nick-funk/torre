@@ -55,7 +55,8 @@ namespace torre
                 .Include("~/Content/leaflet.css"));
 
             bundles.Add(new StyleBundle("~/Content/UIKit")
-                .Include("~/Content/UIKit/uikit.css"));
+                .Include("~/Content/UIKit/uikit.css")
+                .Include("~/Content/UIKit/uikit-customizations.css"));
         }
     }
 }
