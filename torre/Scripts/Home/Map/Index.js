@@ -39,4 +39,3 @@ var torre;
         })(Map = Home.Map || (Home.Map = {}));
     })(Home = torre.Home || (torre.Home = {}));
 })(torre || (torre = {}));
-//# sourceMappingURL=Index.js.map
