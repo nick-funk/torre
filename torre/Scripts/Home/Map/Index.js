@@ -6,29 +6,17 @@ var torre;
         (function (Map) {
             var Index = (function () {
                 function Index(center, zoom) {
-                    this.loadMap(center, zoom);
+                    this.map = new torre.Maps.Map(center.Latitude, center.Longitude, zoom, "map");
+                    this.loadMarkers();
                 }
-                Index.prototype.loadMap = function (center, zoom) {
+                Index.prototype.loadMarkers = function () {
                     var _this = this;
-                    var calgary = { lat: center.Latitude, lng: center.Longitude };
-                    this.map = new google.maps.Map(document.getElementById('map'), { zoom: zoom, center: calgary });
-                    this.infoWindow = new google.maps.InfoWindow();
                     $.ajax("/features/markers", {
                         success: function (markers) {
                             for (var i in markers) {
                                 var markerViewModel = markers[i];
                                 var content = "<h3>" + markerViewModel.Name + "</h3>";
-                                var marker = new google.maps.Marker({
-                                    position: { lat: markerViewModel.Latitude, lng: markerViewModel.Longitude },
-                                    map: _this.map
-                                });
-                                google.maps.event.addListener(marker, 'click', (function (marker, content, infoWindow) {
-                                    return function () {
-                                        infoWindow.close();
-                                        infoWindow.setContent(content);
-                                        infoWindow.open(_this.map, marker);
-                                    };
-                                })(marker, content, _this.infoWindow));
+                                _this.map.addMarker(markerViewModel.Latitude, markerViewModel.Longitude, content);
                             }
                         }
                     });
