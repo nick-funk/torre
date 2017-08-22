@@ -1,4 +1,4 @@
-﻿namespace torre.Home.Map {
+﻿namespace torre.ViewModels.Home {
 
     import MarkerViewModel = T4TS.MarkerViewModel;
     import Coordinate = T4TS.Coordinate;

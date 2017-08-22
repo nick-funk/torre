@@ -20,27 +20,28 @@ namespace torre
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                 "~/Scripts/jquery.validate*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                "~/Scripts/modernizr-*"));
+            bundles.Add(new ScriptBundle("~/bundles/modernizr")
+                .Include("~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/utilities")
+                .IncludeDirectory("~/Scripts/Utilities", "*.js", true));
+
             bundles.Add(new ScriptBundle("~/bundles/ts")
                 .Include("~/Scripts/T4TS.d.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/home")
-                .IncludeDirectory("~/Scripts/Home", "*.js", true));
-
             bundles.Add(new ScriptBundle("~/bundles/mapping")
-                .Include("~/Scripts/Google/maps.js")
-                .Include("~/Scripts/leaflet-0.7.3.js")
                 .IncludeDirectory("~/Scripts/Maps", "*.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/UIKit")
                 .Include("~/Scripts/UIKit/uikit.js")
                 .Include("~/Scripts/UIKit/uikit-icons.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/viewModels")
+                .IncludeDirectory("~/Scripts/ViewModels", "*.js", true));
         }
 
         private static void CreateStyleBundles(BundleCollection bundles)

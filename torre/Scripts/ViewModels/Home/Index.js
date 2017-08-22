@@ -1,9 +1,9 @@
 var torre;
 (function (torre) {
-    var Home;
-    (function (Home) {
-        var Map;
-        (function (Map) {
+    var ViewModels;
+    (function (ViewModels) {
+        var Home;
+        (function (Home) {
             var Index = (function () {
                 function Index(center, zoom) {
                     this.map = new torre.Maps.Map(center.Latitude, center.Longitude, zoom, "map");
@@ -23,7 +23,8 @@ var torre;
                 };
                 return Index;
             }());
-            Map.Index = Index;
-        })(Map = Home.Map || (Home.Map = {}));
-    })(Home = torre.Home || (torre.Home = {}));
+            Home.Index = Index;
+        })(Home = ViewModels.Home || (ViewModels.Home = {}));
+    })(ViewModels = torre.ViewModels || (torre.ViewModels = {}));
 })(torre || (torre = {}));
+//# sourceMappingURL=Index.js.map

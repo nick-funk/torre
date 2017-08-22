@@ -7,27 +7,35 @@
 @using (Html.BeginForm())
 {
     <div class="row">
-        <div class="form-group col-md-6">
-            @Html.LabelFor(m => m.Name)
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name)
+                @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Longitude)
+                @Html.TextBoxFor(m => m.Longitude, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Latitude)
+                @Html.TextBoxFor(m => m.Latitude, new { @class = "form-control" })
+            </div>
         </div>
-    </div>
-
-    <div class="row">
+        
         <div class="form-group col-md-6">
-            @Html.LabelFor(m => m.Longitude)
-            @Html.TextBoxFor(m => m.Longitude, new { @class = "form-control" })
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="form-group col-md-6">
-            @Html.LabelFor(m => m.Latitude)
-            @Html.TextBoxFor(m => m.Latitude, new { @class = "form-control" })
+            <div id="map" class="col-md-6 pull-right" style="width: 600px; height: 300px"></div>
         </div>
     </div>
 
     <input type="submit" class="btn btn-default" value="Add" />
-    
     <a href="@Url.Action("Index", "Features")">Cancel</a>
+}
+
+@section scripts
+{
+    <script src="@Url.Content("~/Scripts/ViewModels/Marker/Add.js")"></script>
+    <script>
+        var viewModel =
+            new torre.ViewModels.Marker.Add();
+    </script>
 }

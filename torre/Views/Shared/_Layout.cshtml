@@ -31,12 +31,16 @@
         <p>&copy; @DateTime.Now.Year - Torre</p>
     </footer>
 </div>
+    
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHZDGMsYq0y8jyuywz2ekHP7AJZ1-xhPw" type="text/javascript"></script>
 
 @Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/vendor")
+@Scripts.Render("~/bundles/utilities")
 @Scripts.Render("~/bundles/bootstrap")
 @Scripts.Render("~/bundles/UIKit")
 @Scripts.Render("~/bundles/ts")
-@Scripts.Render("~/bundles/home")
+@Scripts.Render("~/bundles/viewModels")
 @Scripts.Render("~/bundles/mapping")
 @RenderSection("scripts", required: false)
 </body>

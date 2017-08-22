@@ -265,8 +265,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\Home\Map\Index.ts" />
+    <TypeScriptCompile Include="Scripts\Utilities\Uuid.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Home\Index.ts" />
     <TypeScriptCompile Include="Scripts\Maps\Map.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Marker\Add.ts" />
     <TypeScriptCompile Include="Scripts\typings\googlemaps\google.maps.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="T4TS.d.ts">
