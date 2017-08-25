@@ -11,7 +11,7 @@
     <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
         @foreach (var marker in Model.Markers)
         {
-            <div>
+            <a href="@Url.Action("Edit", "Marker", new { id = marker.Id })">
                 <div class="uk-card uk-card-default uk-card-hover uk-card-body">
                     <div class="uk-card-title">
                         @marker.Name
@@ -20,7 +20,7 @@
                         @marker.Longitude , @marker.Latitude
                     </div>
                 </div>
-            </div>
+            </a>
         }
     </div>
 </div>

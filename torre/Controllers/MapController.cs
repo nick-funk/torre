@@ -6,24 +6,22 @@
     using domain.Repositories.Map;
     using Models;
 
-    public class FeaturesController : Controller
+    public class MapController : Controller
     {
         private readonly IMapper _mapper;
         private readonly IMarkerRepository _markerRepository;
 
-        public FeaturesController(IMapper mapper, IMarkerRepository markerRepository)
+        public MapController(IMapper mapper, IMarkerRepository markerRepository)
         {
             _mapper = mapper;
             _markerRepository = markerRepository;
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public JsonResult Markers()
         {
-            return View(new MarkerIndexModel
-            {
-                Markers = _mapper.Map<ICollection<MarkerViewModel>>(_markerRepository.All())
-            });
+            return Json(_mapper.Map<IEnumerable<MarkerViewModel>>(_markerRepository.All()),
+                JsonRequestBehavior.AllowGet);
         }
     }
 }

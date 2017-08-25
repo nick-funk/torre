@@ -7,8 +7,8 @@
     {
         public MarkerMappingProfile()
         {
-            this.CreateMap<Marker, domain.Models.Map.Marker>();
-            this.CreateMap<domain.Models.Map.Marker, Marker>();
+            CreateMap<Marker, domain.Models.Map.Marker>();
+            CreateMap<domain.Models.Map.Marker, Marker>();
         }
     }
 }

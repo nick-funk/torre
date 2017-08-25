@@ -13,7 +13,7 @@
         }
 
         private loadMarkers(): void {
-            $.ajax("/features/markers",
+            $.ajax("/map/markers",
                 {
                     success: (markers: Array<MarkerViewModel>) => {
                         for (var i in markers) {

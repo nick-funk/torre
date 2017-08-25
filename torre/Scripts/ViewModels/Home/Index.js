@@ -11,7 +11,7 @@ var torre;
                 }
                 Index.prototype.loadMarkers = function () {
                     var _this = this;
-                    $.ajax("/features/markers", {
+                    $.ajax("/map/markers", {
                         success: function (markers) {
                             for (var i in markers) {
                                 var markerViewModel = markers[i];

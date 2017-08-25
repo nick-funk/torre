@@ -157,6 +157,7 @@
     <Compile Include="AutofaqConfig.cs" />
     <Compile Include="Controllers\FeaturesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\MarkerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -165,6 +166,7 @@
     <Compile Include="Models\Coordinate.cs" />
     <Compile Include="Models\MapViewModel.cs" />
     <Compile Include="Models\MarkerAddModel.cs" />
+    <Compile Include="Models\MarkerEditModel.cs" />
     <Compile Include="Models\MarkerIndexModel.cs" />
     <Compile Include="Models\MarkerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -242,6 +244,7 @@
     <Content Include="Views\Features\Index.cshtml" />
     <Content Include="Views\Marker\Add.cshtml" />
     <Content Include="T4TS.tt.settings.t4" />
+    <Content Include="Views\Marker\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -269,6 +272,7 @@
     <TypeScriptCompile Include="Scripts\Utilities\Uuid.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Home\Index.ts" />
     <TypeScriptCompile Include="Scripts\Maps\Map.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Marker\Edit.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Marker\Add.ts" />
     <TypeScriptCompile Include="Scripts\typings\googlemaps\google.maps.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />

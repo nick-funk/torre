@@ -1,5 +1,6 @@
 ﻿namespace torre.Controllers
 {
+    using System;
     using System.Web.Mvc;
     using AutoMapper;
     using domain.Models.Map;
@@ -8,32 +9,53 @@
 
     public class MarkerController : Controller
     {
-        private readonly IMarkerRepository markerRepository;
-        private readonly IMapper mapper;
+        private readonly IMarkerRepository _markerRepository;
+        private readonly IMapper _mapper;
 
         public MarkerController(IMarkerRepository markerRepository, IMapper mapper)
         {
-            this.markerRepository = markerRepository;
-            this.mapper = mapper;
+            _markerRepository = markerRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public ActionResult Add()
         {
-            return this.View(new MarkerAddModel());
+            return View(new MarkerAddModel());
         }
 
         [HttpPost]
         public ActionResult Add(MarkerAddModel model)
         {
-            if (this.ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                this.markerRepository.Add(this.mapper.Map<Marker>(model));
+                _markerRepository.Add(_mapper.Map<Marker>(model));
 
-                return this.RedirectToAction("Index", "Features");
+                return RedirectToAction("Index", "Features");
             }
 
-            return this.View(model);
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult Edit(Guid id)
+        {
+            var model = _markerRepository.Get(id);
+
+            return View(_mapper.Map<MarkerEditModel>(model));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(MarkerEditModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                _markerRepository.Update(_mapper.Map<Marker>(model));
+
+                return RedirectToAction("Index", "Features");
+            }
+
+            return View(model);
         }
     }
 }
