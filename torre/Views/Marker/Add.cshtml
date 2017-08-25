@@ -1,35 +1,38 @@
 ﻿@model torre.Models.MarkerAddModel
     
-<div class="page-header">
-    <h3>Add Marker</h3>
-</div>
+<h3 class="uk-heading-divider">Add Marker</h3>
 
 @using (Html.BeginForm())
 {
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
+    <div uk-grid>
+        <div class="uk-width-1-3@m">
+            <div class="uk-margin">
                 @Html.LabelFor(m => m.Name)
-                @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
+                @Html.TextBoxFor(m => m.Name, new {@class = "uk-input"})
             </div>
-            <div class="form-group">
+            <div class="uk-margin">
                 @Html.LabelFor(m => m.Longitude)
-                @Html.TextBoxFor(m => m.Longitude, new {@class = "form-control"})
+                @Html.TextBoxFor(m => m.Longitude, new {@class = "uk-input" })
             </div>
-            <div class="form-group">
+            <div class="uk-margin">
                 @Html.LabelFor(m => m.Latitude)
-                @Html.TextBoxFor(m => m.Latitude, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Latitude, new {@class = "uk-input" })
+            </div>
+            
+            <div class="gap"></div>
+            
+            <div class="button-group">
+                <input type="submit" class="uk-button uk-button-default" value="Add"/>
+                <a class="uk-button uk-button-default" href="@Url.Action("Index", "Features")">Cancel</a>
             </div>
         </div>
         
-        <div class="form-group col-md-6">
-            <div id="map" class="col-md-6 pull-right" style="width: 600px; height: 300px"></div>
+        <div class="uk-width-2-3@m">
+            <div id="map" class="map-small"></div>
         </div>
     </div>
-
-    <input type="submit" class="btn btn-default" value="Add" />
-    <a href="@Url.Action("Index", "Features")">Cancel</a>
 }
+
 
 @section scripts
 {

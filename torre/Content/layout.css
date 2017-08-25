@@ -2,3 +2,15 @@
     margin: auto;
     width: 70%;
 }
+
+.button-group {   
+    display: inline-block;
+}
+
+.button-group > .uk-button:not(:last-child) {
+    margin-right: 20px;
+}
+
+.gap {
+    height: 30px;
+}
