@@ -177,6 +177,7 @@
     <Content Include="Content\card.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\layout.css" />
     <Content Include="Content\map.css" />
     <Content Include="Content\UIKit\uikit-rtl.css" />
     <Content Include="Content\UIKit\uikit-rtl.min.css" />

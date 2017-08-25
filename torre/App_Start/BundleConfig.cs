@@ -50,7 +50,8 @@ namespace torre
                 "~/Content/bootstrap.css",
                 "~/Content/font-awesome.css",
                 "~/Content/card.css",
-                "~/Content/site.css"));
+                "~/Content/site.css",
+                "~/Content/layout.css"));
 
             bundles.Add(new StyleBundle("~/Content/mapping")
                 .Include("~/Content/map.css")
