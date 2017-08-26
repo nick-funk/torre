@@ -2,6 +2,7 @@
 
     import MarkerViewModel = T4TS.MarkerViewModel;
     import Coordinate = T4TS.Coordinate;
+    import Map = Maps.Map;
 
     export class Index {
         private map: Maps.Map;
@@ -11,10 +12,11 @@
             this.map = new Maps.Map(center.Latitude, center.Longitude, zoom, "map");
             this.editor = new Maps.Editor(this.map);
 
-            this.loadMarkers();
+            this.map.addLoader(this.loadMarkers);
+            this.map.refresh();
         }
 
-        private loadMarkers(): void {
+        private loadMarkers(map: Map): void {
             $.ajax("/map/markers",
                 {
                     success: (markers: Array<MarkerViewModel>) => {
@@ -23,7 +25,7 @@
 
                             var content = "<h3>" + markerViewModel.Name + "</h3>";
 
-                            this.map.addMarker(markerViewModel.Latitude, markerViewModel.Longitude, content);
+                            map.addMarker(markerViewModel.Latitude, markerViewModel.Longitude, content);
                         }
                     }
                 });

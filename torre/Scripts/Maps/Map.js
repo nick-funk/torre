@@ -6,12 +6,21 @@ var torre;
         var Map = (function () {
             function Map(centerLat, centerLong, zoom, targetDiv) {
                 this.markers = {};
+                this.loaders = [];
                 this.loadMap(centerLat, centerLong, zoom, targetDiv);
             }
             Map.prototype.loadMap = function (centerLat, centerLong, zoom, targetDiv) {
                 var centerTo = { lat: centerLat, lng: centerLong };
                 this.map = new google.maps.Map(document.getElementById(targetDiv), { zoom: zoom, center: centerTo });
                 this.infoWindow = new google.maps.InfoWindow();
+            };
+            Map.prototype.addLoader = function (loader) {
+                this.loaders.push(loader);
+            };
+            Map.prototype.refresh = function () {
+                for (var i = 0; i < this.loaders.length; i++) {
+                    this.loaders[i](this);
+                }
             };
             Map.prototype.addMarker = function (latitude, longitude, content) {
                 var _this = this;

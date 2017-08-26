@@ -8,16 +8,16 @@ var torre;
                 function Index(center, zoom) {
                     this.map = new torre.Maps.Map(center.Latitude, center.Longitude, zoom, "map");
                     this.editor = new torre.Maps.Editor(this.map);
-                    this.loadMarkers();
+                    this.map.addLoader(this.loadMarkers);
+                    this.map.refresh();
                 }
-                Index.prototype.loadMarkers = function () {
-                    var _this = this;
+                Index.prototype.loadMarkers = function (map) {
                     $.ajax("/map/markers", {
                         success: function (markers) {
                             for (var i in markers) {
                                 var markerViewModel = markers[i];
                                 var content = "<h3>" + markerViewModel.Name + "</h3>";
-                                _this.map.addMarker(markerViewModel.Latitude, markerViewModel.Longitude, content);
+                                map.addMarker(markerViewModel.Latitude, markerViewModel.Longitude, content);
                             }
                         }
                     });

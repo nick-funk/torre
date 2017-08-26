@@ -4,11 +4,12 @@
     export class Map {
         private map: google.maps.Map;
         private infoWindow: google.maps.InfoWindow;
-
         private markers: {};
+        private loaders: {(map: Map): void}[];
 
         constructor(centerLat: number, centerLong: number, zoom: number, targetDiv: string) {
             this.markers = {};
+            this.loaders = [];
 
             this.loadMap(centerLat, centerLong, zoom, targetDiv);
         }
@@ -18,6 +19,16 @@
             this.map = new google.maps.Map(document.getElementById(targetDiv), { zoom: zoom, center: centerTo });
 
             this.infoWindow = new google.maps.InfoWindow();
+        }
+
+        public addLoader(loader: { (map: Map): void }): void {
+            this.loaders.push(loader);
+        }
+
+        public refresh(): void {
+            for (var i = 0; i < this.loaders.length; i++) {
+                this.loaders[i](this);
+            }
         }
 
         public addMarker(latitude: number, longitude: number, content: string): string {
