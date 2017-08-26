@@ -4,10 +4,7 @@
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
-    using Controllers;
-    using data.Repositories.Map;
-    using domain.Repositories.Map;
-    using LightInject;
+    using Container;
 
     public class MvcApplication : HttpApplication
     {

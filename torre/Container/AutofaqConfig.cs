@@ -1,11 +1,9 @@
-﻿namespace torre
+﻿namespace torre.Container
 {
     using System.Web.Mvc;
     using Autofac;
     using Autofac.Integration.Mvc;
     using AutoMapper;
-    using data;
-    using data.Mappings.Map;
 
     public class AutofaqConfig
     {
@@ -17,9 +15,10 @@
             builder.RegisterFilterProvider();
             builder.RegisterSource(new ViewRegistrationSource());
 
-            RegisterMappings(builder);
+            builder.RegisterAssemblyTypes(Assemblies.GetAll()).AsSelf().AsImplementedInterfaces();
+            builder.RegisterAssemblyModules(Assemblies.GetAll());
 
-            RegisterModules(builder);
+            RegisterMappings(builder);
 
             var container = builder.Build();
 
@@ -28,19 +27,10 @@
 
         private static void RegisterMappings(ContainerBuilder builder)
         {
-            Mapper mapper = new Mapper(new MapperConfiguration(cfg =>
+            builder.Register(c => new Mapper(new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile<GeographyMappingProfile>();
-                cfg.AddProfile<MarkerMappingProfile>();
-                cfg.AddProfile<Mappings.Features.MarkerMappingProfile>();
-            }));
-
-            builder.Register(c => mapper).As<IMapper>();
-        }
-
-        private static void RegisterModules(ContainerBuilder builder)
-        {
-            builder.RegisterModule(new DataModule());
+                cfg.AddProfiles(Assemblies.GetAll());
+            }))).As<IMapper>();
         }
     }
 }
