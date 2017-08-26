@@ -59,5 +59,13 @@
         public center(latitude: number, longitude: number): void {
             this.map.setCenter(new google.maps.LatLng(latitude, longitude));
         }
+
+        public addEvent(type: string, handler: (args: any) => void): void {
+            this.map.addListener(type, handler);
+        }
+
+        setCursor(name: string) {
+            this.map.setOptions({ draggableCursor: name });
+        }
     }
 }

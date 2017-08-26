@@ -45,6 +45,12 @@ var torre;
             Map.prototype.center = function (latitude, longitude) {
                 this.map.setCenter(new google.maps.LatLng(latitude, longitude));
             };
+            Map.prototype.addEvent = function (type, handler) {
+                this.map.addListener(type, handler);
+            };
+            Map.prototype.setCursor = function (name) {
+                this.map.setOptions({ draggableCursor: name });
+            };
             return Map;
         }());
         Maps.Map = Map;

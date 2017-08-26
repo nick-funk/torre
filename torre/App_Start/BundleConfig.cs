@@ -14,11 +14,9 @@ namespace torre
 
         private static void CreateScriptBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                "~/Scripts/jquery-{version}.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                "~/Scripts/jquery.validate*"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery")
+                .Include("~/Scripts/jquery-{version}.js")
+                .Include("~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr")
                 .Include("~/Scripts/modernizr-*"));
@@ -38,6 +36,9 @@ namespace torre
 
             bundles.Add(new ScriptBundle("~/bundles/viewModels")
                 .IncludeDirectory("~/Scripts/ViewModels", "*.js", true));
+
+            bundles.Add(new ScriptBundle("~/bundles/binding")
+                .Include("~/Scripts/knockout-3.4.2.js"));
         }
 
         private static void CreateStyleBundles(BundleCollection bundles)

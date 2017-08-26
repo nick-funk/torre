@@ -1,9 +1,11 @@
 ﻿@model torre.Models.Editor.EditorIndexModel
 
-<div class="uk-card uk-card-default uk-card-body">
+<div class="uk-card uk-card-default uk-card-body" id="editor">
     <div class="uk-card-title">
         Editor
     </div>
     <div class="uk-card-body">
+        <button class="uk-button uk-button-small uk-button-default" 
+                data-bind="click: function() { this.setMode('marker') }">Add Markers</button>
     </div>
 </div>
