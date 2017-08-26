@@ -5,6 +5,7 @@ var torre;
         var Editor = (function () {
             function Editor(map) {
                 this.map = map;
+                this.markers = new Array();
                 var editor = this;
                 this.map.addEvent('click', function (args) { return editor.onClick(args); });
                 this.map.addEvent('rightclick', function (args) { return editor.onRightClick(args); });
@@ -21,6 +22,9 @@ var torre;
                 if (this.mode === "marker") {
                     this.addMarker(longitude, latitude);
                 }
+                if (this.mode === "remove-marker") {
+                    this.removeMarker(longitude, latitude);
+                }
             };
             Editor.prototype.onRightClick = function (args) {
                 this.mode = "";
@@ -28,6 +32,18 @@ var torre;
             };
             Editor.prototype.addMarker = function (longitude, latitude) {
                 var id = this.map.addMarker(latitude, longitude, "TEST");
+                this.markers.push(new Maps.Marker(id, latitude, longitude));
+            };
+            Editor.prototype.removeMarker = function (longitude, latitude) {
+                for (var i = 0; i < this.markers.length; i++) {
+                    var marker = this.markers[i];
+                    var radius = this.map.getLongWidth() / 100;
+                    if (marker.isNear(latitude, longitude, radius)) {
+                        this.map.removeMarker(marker.id);
+                        this.markers.splice(i, 1);
+                        i--;
+                    }
+                }
             };
             return Editor;
         }());

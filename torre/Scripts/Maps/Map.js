@@ -51,6 +51,10 @@ var torre;
             Map.prototype.setCursor = function (name) {
                 this.map.setOptions({ draggableCursor: name });
             };
+            Map.prototype.getLongWidth = function () {
+                var bounds = this.map.getBounds();
+                return bounds.getNorthEast().lng() - bounds.getSouthWest().lng();
+            };
             return Map;
         }());
         Maps.Map = Map;

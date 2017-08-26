@@ -64,8 +64,14 @@
             this.map.addListener(type, handler);
         }
 
-        setCursor(name: string) {
+        public setCursor(name: string): void {
             this.map.setOptions({ draggableCursor: name });
+        }
+
+        public getLongWidth(): number {
+            var bounds = this.map.getBounds();
+
+            return bounds.getNorthEast().lng() - bounds.getSouthWest().lng();
         }
     }
 }

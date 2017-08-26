@@ -1,11 +1,25 @@
 ﻿@model torre.Models.Editor.EditorIndexModel
 
-<div class="uk-card uk-card-default uk-card-body" id="editor">
-    <div class="uk-card-title">
-        Editor
+<div class="uk-card uk-card-default" id="editor">
+    
+    <div class="uk-card-header">
+        <h4 class="uk-card-title">Editor</h4>
     </div>
     <div class="uk-card-body">
-        <button class="uk-button uk-button-small uk-button-default" 
-                data-bind="click: function() { this.setMode('marker') }">Add Markers</button>
+        <h4 class="uk-heading-bullet">Markers</h4>
+        <div class="uk-text-center uk-grid-small" uk-grid>
+            <div class="uk-width-1-3">
+                <button class="uk-button uk-button-small uk-button-primary"
+                        data-bind="click: function() { this.setMode('marker') }">
+                    Add
+                </button>
+            </div>
+            <div class="uk-width-1-3">
+                <button class="uk-button uk-button-small uk-button-danger"
+                        data-bind="click: function() { this.setMode('remove-marker') }">
+                    Remove
+                </button>
+            </div>
+        </div>
     </div>
 </div>
