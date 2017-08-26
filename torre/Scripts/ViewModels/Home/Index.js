@@ -7,6 +7,7 @@ var torre;
             var Index = (function () {
                 function Index(center, zoom) {
                     this.map = new torre.Maps.Map(center.Latitude, center.Longitude, zoom, "map");
+                    this.editor = new torre.Maps.Editor(this.map);
                     this.loadMarkers();
                 }
                 Index.prototype.loadMarkers = function () {

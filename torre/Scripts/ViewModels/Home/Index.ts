@@ -5,9 +5,11 @@
 
     export class Index {
         private map: Maps.Map;
+        private editor: Maps.Editor;
 
         constructor(center: Coordinate, zoom: number) {
             this.map = new Maps.Map(center.Latitude, center.Longitude, zoom, "map");
+            this.editor = new Maps.Editor(this.map);
 
             this.loadMarkers();
         }
