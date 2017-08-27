@@ -4,6 +4,7 @@ var torre;
     (function (ViewModels) {
         var Marker;
         (function (Marker) {
+            var Uuid = torre.Utilities.Uuid;
             var Edit = (function () {
                 function Edit() {
                     var _this = this;
@@ -23,7 +24,8 @@ var torre;
                     var latitude = parseFloat(latDiv.val());
                     var longitude = parseFloat(longDiv.val());
                     this.map.center(latitude, longitude);
-                    this.markerId = this.map.addMarker(latitude, longitude, "");
+                    this.markerId = Uuid.create();
+                    this.map.addMarker(this.markerId, latitude, longitude, "");
                 };
                 return Edit;
             }());

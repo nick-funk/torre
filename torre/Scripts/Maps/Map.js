@@ -2,7 +2,6 @@ var torre;
 (function (torre) {
     var Maps;
     (function (Maps) {
-        var Uuid = torre.Utilities.Uuid;
         var Map = (function () {
             function Map(centerLat, centerLong, zoom, targetDiv) {
                 this.markers = {};
@@ -22,9 +21,8 @@ var torre;
                     this.loaders[i](this);
                 }
             };
-            Map.prototype.addMarker = function (latitude, longitude, content) {
+            Map.prototype.addMarker = function (id, latitude, longitude, content) {
                 var _this = this;
-                var id = Uuid.create();
                 var marker = new google.maps.Marker({
                     position: { lat: latitude, lng: longitude },
                     map: this.map

@@ -1,25 +1,37 @@
 ﻿@model torre.Models.Editor.EditorIndexModel
 
-<div class="uk-card uk-card-default" id="editor">
-    
-    <div class="uk-card-header">
-        <h4 class="uk-card-title">Editor</h4>
+<div id="editor">
+    <div class="uk-card uk-card-default">
+        <div class="uk-card-header">
+            <h4 class="uk-card-title">Editor</h4>
+        </div>
+        <div class="uk-card-body">
+            <h4 class="uk-heading-bullet">Markers</h4>
+            <div class="uk-text-center uk-grid-small" uk-grid>
+                <div class="uk-width-1-3">
+                    <button class="uk-button uk-button-small uk-button-primary"
+                            data-bind="click: function() { this.setMode('marker') }">
+                        Add
+                    </button>
+                </div>
+                <div class="uk-width-1-3">
+                    <button class="uk-button uk-button-small uk-button-danger"
+                            data-bind="click: function() { this.setMode('remove-marker') }">
+                        Remove
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="uk-card-body">
-        <h4 class="uk-heading-bullet">Markers</h4>
-        <div class="uk-text-center uk-grid-small" uk-grid>
-            <div class="uk-width-1-3">
-                <button class="uk-button uk-button-small uk-button-primary"
-                        data-bind="click: function() { this.setMode('marker') }">
-                    Add
-                </button>
-            </div>
-            <div class="uk-width-1-3">
-                <button class="uk-button uk-button-small uk-button-danger"
-                        data-bind="click: function() { this.setMode('remove-marker') }">
-                    Remove
-                </button>
-            </div>
+    
+    <div class="gap"></div>
+
+    <div class="uk-card uk-card-default">
+        <div class="uk-card-header">
+            <h4 class="uk-card-title">Properties</h4>
+        </div>
+        <div class="uk-card-body">
+            <div data-bind="text: selectedName()"></div>
         </div>
     </div>
 </div>

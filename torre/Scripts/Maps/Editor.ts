@@ -1,17 +1,23 @@
 ﻿namespace torre.Maps {
+    import Uuid = Utilities.Uuid;
+
     export class Editor {
         private map: Map;
         private mode: string;
         private markers: Marker[];
+
+        private selectedName: KnockoutObservable<string>;
+        private selectedId: KnockoutObservable<string>;
 
         constructor(map: Map) {
             this.map = map;
 
             this.markers = new Array<Marker>();
 
-            var editor = this;
-            this.map.addEvent('click', (args: any) => editor.onClick(args));
-            this.map.addEvent('rightclick', (args: any) => editor.onRightClick(args));
+            this.setupMapClickEvents();
+
+            this.selectedName = ko.observable("");
+            this.selectedId = ko.observable("");
 
             let root = document.getElementById("editor");
             ko.applyBindings(this, root);
@@ -20,6 +26,12 @@
         public setMode(mode: string): void {
             this.mode = mode;
             this.map.setCursor("crosshair");
+        }
+
+        private setupMapClickEvents() {
+            var editor = this;
+            this.map.addEvent('click', (args: any) => editor.onClick(args));
+            this.map.addEvent('rightclick', (args: any) => editor.onRightClick(args));
         }
 
         private onClick(args: any): void {
@@ -40,9 +52,26 @@
         }
 
         private addMarker(longitude: number, latitude: number): void {
+            var id = Uuid.create();
+            var name = "Unknown";
 
-            var id = this.map.addMarker(latitude, longitude, "TEST");
-            this.markers.push(new Marker(id, latitude, longitude));
+            $.ajax({
+                url: "/api/marker/add",
+                type: "POST",
+                data: {
+                    id: id,
+                    name: name,
+                    latitude: latitude,
+                    longitude: longitude
+                },
+                success: () => {
+                    this.map.addMarker(id, latitude, longitude, name);
+                    this.selectedName(name);
+                    this.selectedId(id);
+
+                    this.markers.push(new Marker(id, latitude, longitude));
+                }
+            });
         }
 
         removeMarker(longitude: number, latitude: number): void {

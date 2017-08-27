@@ -31,10 +31,7 @@
             }
         }
 
-        public addMarker(latitude: number, longitude: number, content: string): string {
-
-            var id = Uuid.create();
-
+        public addMarker(id: string, latitude: number, longitude: number, content: string): string {
             var marker = new google.maps.Marker({
                 position: { lat: latitude, lng: longitude },
                 map: this.map

@@ -25,7 +25,7 @@
 
                             var content = "<h3>" + markerViewModel.Name + "</h3>";
 
-                            map.addMarker(markerViewModel.Latitude, markerViewModel.Longitude, content);
+                            map.addMarker(markerViewModel.Id, markerViewModel.Latitude, markerViewModel.Longitude, content);
                         }
                     }
                 });

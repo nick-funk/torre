@@ -1,5 +1,6 @@
 ﻿namespace torre.ViewModels.Marker {
     import Map = Maps.Map;
+    import Uuid = Utilities.Uuid;
 
     export class Add {
         private map: Map;
@@ -31,7 +32,8 @@
 
             this.map.center(latitude, longitude);
 
-            this.markerId = this.map.addMarker(latitude, longitude, "");
+            this.markerId = Uuid.create();
+            this.map.addMarker(this.markerId, latitude, longitude, "");
         }
     }
 }
