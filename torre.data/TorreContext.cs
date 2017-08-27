@@ -5,7 +5,7 @@
 
     public class TorreContext : DbContext, ITorreContext
     {
-        public TorreContext() : base("torre")
+        public TorreContext() : base("Torre")
         {
         }
 
