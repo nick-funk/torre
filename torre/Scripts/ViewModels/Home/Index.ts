@@ -23,7 +23,7 @@
                         for (var i in markers) {
                             var markerViewModel = markers[i];
 
-                            var content = "<h3>" + markerViewModel.Name + "</h3>";
+                            var content = "<h4>" + markerViewModel.Name + "</h4>";
 
                             map.addMarker(markerViewModel.Id, markerViewModel.Latitude, markerViewModel.Longitude, content);
                         }

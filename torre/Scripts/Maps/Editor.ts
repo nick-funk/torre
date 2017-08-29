@@ -62,7 +62,9 @@
                     longitude: longitude
                 },
                 success: () => {
-                    this.map.addMarker(id, latitude, longitude, name);
+                    var content = `<h4>${name}</h4>`;
+
+                    this.map.addMarker(id, latitude, longitude, content);
                     this.selectedName(name);
                     this.selectedId(id);
                 }

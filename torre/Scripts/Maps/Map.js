@@ -33,13 +33,20 @@ var torre;
                         infoWindow.setContent(content);
                         infoWindow.open(_this.map, marker);
                     };
-                })(marker, content, this.infoWindow));
+                })(marker, this.formatContent(id, content), this.infoWindow));
                 this.markers[id] = new Maps.Marker(id, latitude, longitude, listener, marker);
                 return id;
             };
             Map.prototype.removeMarker = function (id) {
                 var marker = this.markers[id];
                 if (marker) {
+                    $.ajax({
+                        url: "/api/marker/remove",
+                        type: "POST",
+                        data: {
+                            id: marker.id
+                        }
+                    });
                     google.maps.event.removeListener(marker.clickEvent);
                     marker.mapMarker.setMap(null);
                     delete this.markers[id];
@@ -50,13 +57,6 @@ var torre;
                     var marker = this.markers[i];
                     var radius = this.getLongWidth() / 100;
                     if (marker.isNear(latitude, longitude, radius)) {
-                        $.ajax({
-                            url: "/api/marker/remove",
-                            type: "POST",
-                            data: {
-                                id: marker.id
-                            }
-                        });
                         this.removeMarker(marker.id);
                     }
                 }
@@ -73,6 +73,11 @@ var torre;
             Map.prototype.getLongWidth = function () {
                 var bounds = this.map.getBounds();
                 return bounds.getNorthEast().lng() - bounds.getSouthWest().lng();
+            };
+            Map.prototype.formatContent = function (id, content) {
+                var html = "<div>" + content + "</div>";
+                html += "<div class=\"uk-text-center uk-grid-small\" uk-grid>\n                        <div class=\"uk-width-1-3\">\n                            <button class=\"uk-button uk-button-small uk-button-danger\" onclick=\"viewModel.map.removeMarker('" + id + "')\">Delete</button>\n                        </div>\n                     </div>";
+                return html;
             };
             return Map;
         }());

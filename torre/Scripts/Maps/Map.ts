@@ -40,7 +40,7 @@
                     infoWindow.close();
                     infoWindow.setContent(content);
                     infoWindow.open(this.map, marker);
-                })(marker, content, this.infoWindow));
+                })(marker, this.formatContent(id, content), this.infoWindow));
 
             this.markers[id] = new Marker(id, latitude, longitude, listener, marker);
 
@@ -51,6 +51,14 @@
             var marker = this.markers[id];
 
             if (marker) {
+                $.ajax({
+                    url: "/api/marker/remove",
+                    type: "POST",
+                    data: {
+                        id: marker.id
+                    }
+                });
+
                 google.maps.event.removeListener(marker.clickEvent);
                 marker.mapMarker.setMap(null);
 
@@ -65,14 +73,6 @@
                 var radius = this.getLongWidth() / 100;
 
                 if (marker.isNear(latitude, longitude, radius)) {
-                    $.ajax({
-                        url: "/api/marker/remove",
-                        type: "POST",
-                        data: {
-                            id: marker.id
-                        }
-                    });
-
                     this.removeMarker(marker.id);
                 }
             }
@@ -94,6 +94,18 @@
             var bounds = this.map.getBounds();
 
             return bounds.getNorthEast().lng() - bounds.getSouthWest().lng();
+        }
+
+        private formatContent(id: string, content: string): string {
+            var html = `<div>${content}</div>`;
+
+            html += `<div class="uk-text-center uk-grid-small" uk-grid>
+                        <div class="uk-width-1-3">
+                            <button class="uk-button uk-button-small uk-button-danger" onclick="viewModel.map.removeMarker('${id}')">Delete</button>
+                        </div>
+                     </div>`;
+
+            return html;
         }
     }
 }

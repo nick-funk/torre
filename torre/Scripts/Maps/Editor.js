@@ -49,7 +49,8 @@ var torre;
                         longitude: longitude
                     },
                     success: function () {
-                        _this.map.addMarker(id, latitude, longitude, name);
+                        var content = "<h4>" + name + "</h4>";
+                        _this.map.addMarker(id, latitude, longitude, content);
                         _this.selectedName(name);
                         _this.selectedId(id);
                     }
