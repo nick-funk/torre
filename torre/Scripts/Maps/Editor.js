@@ -6,7 +6,6 @@ var torre;
         var Editor = (function () {
             function Editor(map) {
                 this.map = map;
-                this.markers = new Array();
                 this.setupMapClickEvents();
                 this.selectedName = ko.observable("");
                 this.selectedId = ko.observable("");
@@ -53,20 +52,11 @@ var torre;
                         _this.map.addMarker(id, latitude, longitude, name);
                         _this.selectedName(name);
                         _this.selectedId(id);
-                        _this.markers.push(new Maps.Marker(id, latitude, longitude));
                     }
                 });
             };
             Editor.prototype.removeMarker = function (longitude, latitude) {
-                for (var i = 0; i < this.markers.length; i++) {
-                    var marker = this.markers[i];
-                    var radius = this.map.getLongWidth() / 100;
-                    if (marker.isNear(latitude, longitude, radius)) {
-                        this.map.removeMarker(marker.id);
-                        this.markers.splice(i, 1);
-                        i--;
-                    }
-                }
+                this.map.removeMarkersNear(latitude, longitude);
             };
             return Editor;
         }());

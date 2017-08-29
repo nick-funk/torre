@@ -3,10 +3,12 @@ var torre;
     var Maps;
     (function (Maps) {
         var Marker = (function () {
-            function Marker(id, latitude, longitude) {
+            function Marker(id, latitude, longitude, clickEvent, mapMarker) {
+                this.id = id;
                 this.longitude = longitude;
                 this.latitude = latitude;
-                this.id = id;
+                this.clickEvent = clickEvent;
+                this.mapMarker = mapMarker;
             }
             Marker.prototype.isNear = function (latitude, longitude, radius) {
                 return latitude >= this.latitude - radius * 2 &&

@@ -25,9 +25,12 @@
             _context.SaveChanges();
         }
 
-        public void Remove(Marker marker)
+        public void Remove(Guid id)
         {
-            throw new NotImplementedException();
+            var entity = _context.Markers.Single(m => m.Id == id);
+            _context.Markers.Remove(entity);
+
+            _context.SaveChanges();
         }
 
         public Marker Get(Guid id)

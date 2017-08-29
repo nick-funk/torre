@@ -4,15 +4,12 @@
     export class Editor {
         private map: Map;
         private mode: string;
-        private markers: Marker[];
 
         private selectedName: KnockoutObservable<string>;
         private selectedId: KnockoutObservable<string>;
 
         constructor(map: Map) {
             this.map = map;
-
-            this.markers = new Array<Marker>();
 
             this.setupMapClickEvents();
 
@@ -68,24 +65,12 @@
                     this.map.addMarker(id, latitude, longitude, name);
                     this.selectedName(name);
                     this.selectedId(id);
-
-                    this.markers.push(new Marker(id, latitude, longitude));
                 }
             });
         }
 
-        removeMarker(longitude: number, latitude: number): void {
-            for (var i = 0; i < this.markers.length; i++) {
-                var marker = this.markers[i];
-
-                var radius = this.map.getLongWidth() / 100;
-
-                if (marker.isNear(latitude, longitude, radius)) {
-                    this.map.removeMarker(marker.id);
-                    this.markers.splice(i, 1);
-                    i--;
-                }
-            }
+        private removeMarker(longitude: number, latitude: number): void {
+            this.map.removeMarkersNear(latitude, longitude);
         }
     }
 }

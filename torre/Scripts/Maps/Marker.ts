@@ -3,11 +3,16 @@ module torre.Maps {
         public longitude: number;
         public latitude: number;
         public id: string;
+        public mapMarker: any;
+        public clickEvent: any;
 
-        constructor(id: string, latitude: number, longitude: number) {
+        constructor(id: string, latitude: number, longitude: number, clickEvent: any, mapMarker: any) {
+            this.id = id;
             this.longitude = longitude;
             this.latitude = latitude;
-            this.id = id;
+
+            this.clickEvent = clickEvent;
+            this.mapMarker = mapMarker;
         }
 
         public isNear(latitude: number, longitude: number, radius: number): boolean {

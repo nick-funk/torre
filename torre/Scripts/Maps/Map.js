@@ -4,7 +4,7 @@ var torre;
     (function (Maps) {
         var Map = (function () {
             function Map(centerLat, centerLong, zoom, targetDiv) {
-                this.markers = {};
+                this.markers = [];
                 this.loaders = [];
                 this.loadMap(centerLat, centerLong, zoom, targetDiv);
             }
@@ -34,19 +34,31 @@ var torre;
                         infoWindow.open(_this.map, marker);
                     };
                 })(marker, content, this.infoWindow));
-                this.markers[id] = {
-                    marker: marker,
-                    clickEvent: listener
-                };
+                this.markers[id] = new Maps.Marker(id, latitude, longitude, listener, marker);
                 return id;
             };
             Map.prototype.removeMarker = function (id) {
-                var details = this.markers[id];
-                if (details) {
-                    var marker = details["marker"];
-                    var clickEvent = details["clickEvent"];
-                    google.maps.event.removeListener(clickEvent);
-                    marker.setMap(null);
+                var marker = this.markers[id];
+                if (marker) {
+                    google.maps.event.removeListener(marker.clickEvent);
+                    marker.mapMarker.setMap(null);
+                    delete this.markers[id];
+                }
+            };
+            Map.prototype.removeMarkersNear = function (latitude, longitude) {
+                for (var i in this.markers) {
+                    var marker = this.markers[i];
+                    var radius = this.getLongWidth() / 100;
+                    if (marker.isNear(latitude, longitude, radius)) {
+                        $.ajax({
+                            url: "/api/marker/remove",
+                            type: "POST",
+                            data: {
+                                id: marker.id
+                            }
+                        });
+                        this.removeMarker(marker.id);
+                    }
                 }
             };
             Map.prototype.center = function (latitude, longitude) {

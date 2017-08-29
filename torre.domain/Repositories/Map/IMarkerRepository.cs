@@ -8,7 +8,7 @@
     {
         void Add(Marker marker);
 
-        void Remove(Marker marker);
+        void Remove(Guid id);
 
         Marker Get(Guid id);
 

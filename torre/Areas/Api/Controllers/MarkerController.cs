@@ -27,7 +27,15 @@
 
             _markerRepository.Add(marker);
 
-            return new HttpStatusCodeResult(HttpStatusCode.Accepted);
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+        [HttpPost]
+        public ActionResult Remove(Guid id)
+        {
+            _markerRepository.Remove(id);
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }
 }

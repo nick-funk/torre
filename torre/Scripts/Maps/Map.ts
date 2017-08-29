@@ -1,14 +1,12 @@
 ﻿namespace torre.Maps {
-    import Uuid = Utilities.Uuid;
-
     export class Map {
         private map: google.maps.Map;
         private infoWindow: google.maps.InfoWindow;
-        private markers: {};
+        private markers: Array<Marker>;
         private loaders: {(map: Map): void}[];
 
         constructor(centerLat: number, centerLong: number, zoom: number, targetDiv: string) {
-            this.markers = {};
+            this.markers = [];
             this.loaders = [];
 
             this.loadMap(centerLat, centerLong, zoom, targetDiv);
@@ -44,23 +42,39 @@
                     infoWindow.open(this.map, marker);
                 })(marker, content, this.infoWindow));
 
-            this.markers[id] = {
-                marker: marker,
-                clickEvent: listener
-            };
+            this.markers[id] = new Marker(id, latitude, longitude, listener, marker);
 
             return id;
         }
 
         public removeMarker(id: string) {
-            var details = this.markers[id];
+            var marker = this.markers[id];
 
-            if (details) {
-                var marker = details["marker"];
-                var clickEvent = details["clickEvent"];
+            if (marker) {
+                google.maps.event.removeListener(marker.clickEvent);
+                marker.mapMarker.setMap(null);
 
-                google.maps.event.removeListener(clickEvent);
-                marker.setMap(null);
+                delete this.markers[id];
+            }
+        }
+
+        public removeMarkersNear(latitude: number, longitude: number) {
+            for (var i in this.markers) {
+                var marker = this.markers[i];
+
+                var radius = this.getLongWidth() / 100;
+
+                if (marker.isNear(latitude, longitude, radius)) {
+                    $.ajax({
+                        url: "/api/marker/remove",
+                        type: "POST",
+                        data: {
+                            id: marker.id
+                        }
+                    });
+
+                    this.removeMarker(marker.id);
+                }
             }
         }
 
