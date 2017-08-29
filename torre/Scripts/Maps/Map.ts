@@ -99,7 +99,10 @@
         private formatContent(id: string, content: string): string {
             var html = `<div>${content}</div>`;
 
-            html += `<div class="uk-text-center uk-grid-small" uk-grid>
+            html += `<div class="uk-text-center uk-grid-medium" uk-grid>
+                        <div class="uk-width-1-3">
+                            <a class="uk-button uk-button-small uk-button-primary" href="/marker/edit/${id}">Edit</a>
+                        </div>
                         <div class="uk-width-1-3">
                             <button class="uk-button uk-button-small uk-button-danger" onclick="viewModel.map.removeMarker('${id}')">Delete</button>
                         </div>

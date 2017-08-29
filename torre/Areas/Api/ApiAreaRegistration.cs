@@ -17,7 +17,8 @@ namespace torre.Areas.Api
             context.MapRoute(
                 "API",
                 "api/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+                new[] { "torre.Areas.Api" }
             );
         }
     }

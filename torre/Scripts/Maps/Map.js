@@ -76,7 +76,7 @@ var torre;
             };
             Map.prototype.formatContent = function (id, content) {
                 var html = "<div>" + content + "</div>";
-                html += "<div class=\"uk-text-center uk-grid-small\" uk-grid>\n                        <div class=\"uk-width-1-3\">\n                            <button class=\"uk-button uk-button-small uk-button-danger\" onclick=\"viewModel.map.removeMarker('" + id + "')\">Delete</button>\n                        </div>\n                     </div>";
+                html += "<div class=\"uk-text-center uk-grid-medium\" uk-grid>\n                        <div class=\"uk-width-1-3\">\n                            <a class=\"uk-button uk-button-small uk-button-primary\" href=\"/marker/edit/" + id + "\">Edit</a>\n                        </div>\n                        <div class=\"uk-width-1-3\">\n                            <button class=\"uk-button uk-button-small uk-button-danger\" onclick=\"viewModel.map.removeMarker('" + id + "')\">Delete</button>\n                        </div>\n                     </div>";
                 return html;
             };
             return Map;
