@@ -18,7 +18,7 @@ namespace torre.Areas.Api
                 "API",
                 "api/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional },
-                new[] { "torre.Areas.Api" }
+                new[] { "torre.Areas.Api.Controllers" }
             );
         }
     }
