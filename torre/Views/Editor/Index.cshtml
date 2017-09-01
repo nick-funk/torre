@@ -31,7 +31,13 @@
             <h4 class="uk-card-title">Properties</h4>
         </div>
         <div class="uk-card-body">
-            <div data-bind="text: selectedName()"></div>
+            <label>Name</label>
+            <input class="uk-input" type="text" data-bind="textInput: propertiesName" />
+            <div class="gap"></div>
+            <button class="uk-button uk-button-small uk-button-default"
+                    data-bind="click: function() { this.saveProperties() }">
+                Save
+            </button>
         </div>
     </div>
 </div>

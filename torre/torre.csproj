@@ -156,6 +156,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
+    <Compile Include="Areas\Api\Models\MarkerModel.cs" />
     <Compile Include="Container\Assemblies.cs" />
     <Compile Include="Container\AutofaqConfig.cs" />
     <Compile Include="Areas\Api\Controllers\MarkerController.cs" />
@@ -167,7 +168,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Mappings\Features\MarkerMappingProfile.cs" />
+    <Compile Include="Mappings\MarkerMappingProfile.cs" />
     <Compile Include="Models\Coordinate.cs" />
     <Compile Include="Models\Editor\EditorIndexModel.cs" />
     <Compile Include="Models\MapViewModel.cs" />
@@ -243,7 +244,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Api\Models\" />
     <Folder Include="Areas\Api\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
@@ -266,7 +266,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Scripts\Maps\MapItemType.ts" />
     <TypeScriptCompile Include="Scripts\Maps\Marker.ts" />
+    <TypeScriptCompile Include="Scripts\Maps\SelectedItem.ts" />
     <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\knockout\tests\jasmine.extensions.d.ts" />
     <TypeScriptCompile Include="Scripts\Utilities\Uuid.ts" />

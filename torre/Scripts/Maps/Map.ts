@@ -3,11 +3,14 @@
         private map: google.maps.Map;
         private infoWindow: google.maps.InfoWindow;
         private markers: Array<Marker>;
-        private loaders: {(map: Map): void}[];
+        private loaders: { (map: Map): void }[];
+
+        public selectedItem: KnockoutObservable<SelectedItem>;
 
         constructor(centerLat: number, centerLong: number, zoom: number, targetDiv: string) {
             this.markers = [];
             this.loaders = [];
+            this.selectedItem = ko.observable(null);
 
             this.loadMap(centerLat, centerLong, zoom, targetDiv);
         }
@@ -30,21 +33,33 @@
         }
 
         public addMarker(id: string, latitude: number, longitude: number, content: string): string {
+            if (this.markers[id]) {
+                this.removeMarkerVisuals(id, this.markers[id]);
+            }
+
             var marker = new google.maps.Marker({
                 position: { lat: latitude, lng: longitude },
                 map: this.map
             });
 
-            var listener = google.maps.event.addListener(marker, 'click', ((marker, content, infoWindow) =>
+            var listener = google.maps.event.addListener(marker, 'click', ((marker, infoContent) =>
                 () => {
-                    infoWindow.close();
-                    infoWindow.setContent(content);
-                    infoWindow.open(this.map, marker);
-                })(marker, this.formatContent(id, content), this.infoWindow));
+                    this.select(id, infoContent);
+                })(marker, content));
 
             this.markers[id] = new Marker(id, latitude, longitude, listener, marker);
 
             return id;
+        }
+
+        public select(id: string, content: string): void {
+
+            var mapMarker = this.markers[id].mapMarker;
+
+            this.infoWindow.close();
+            this.infoWindow.setContent(this.formatContent(id, content));
+            this.infoWindow.open(this.map, mapMarker);
+            this.selectedItem(new SelectedItem(id, MapItemType.marker));
         }
 
         public removeMarker(id: string) {
@@ -59,10 +74,7 @@
                     }
                 });
 
-                google.maps.event.removeListener(marker.clickEvent);
-                marker.mapMarker.setMap(null);
-
-                delete this.markers[id];
+                this.removeMarkerVisuals(id, marker);
             }
         }
 
@@ -94,6 +106,17 @@
             var bounds = this.map.getBounds();
 
             return bounds.getNorthEast().lng() - bounds.getSouthWest().lng();
+        }
+
+        private removeMarkerVisuals(id: string, marker: Marker): void {
+            if (this.selectedItem().id === id) {
+                this.infoWindow.close();
+            }
+
+            google.maps.event.removeListener(marker.clickEvent);
+            marker.mapMarker.setMap(null);
+
+            delete this.markers[id];
         }
 
         private formatContent(id: string, content: string): string {

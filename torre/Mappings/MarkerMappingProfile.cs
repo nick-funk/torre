@@ -1,5 +1,6 @@
-﻿namespace torre.Mappings.Features
+﻿namespace torre.Mappings
 {
+    using Areas.Api.Models;
     using AutoMapper;
     using domain.Models.Map;
     using Models;
@@ -30,6 +31,10 @@
                     Longitude = src.Longitude,
                     Latitude = src.Latitude
                 }));
+
+            CreateMap<Marker, MarkerModel>()
+                .ForMember(dest => dest.Longitude, opt => opt.MapFrom(src => src.Position.Longitude))
+                .ForMember(dest => dest.Latitude, opt => opt.MapFrom(src => src.Position.Latitude)); ;
         }
     }
 }

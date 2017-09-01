@@ -6,6 +6,7 @@ var torre;
             function Map(centerLat, centerLong, zoom, targetDiv) {
                 this.markers = [];
                 this.loaders = [];
+                this.selectedItem = ko.observable(null);
                 this.loadMap(centerLat, centerLong, zoom, targetDiv);
             }
             Map.prototype.loadMap = function (centerLat, centerLong, zoom, targetDiv) {
@@ -23,19 +24,27 @@ var torre;
             };
             Map.prototype.addMarker = function (id, latitude, longitude, content) {
                 var _this = this;
+                if (this.markers[id]) {
+                    this.removeMarkerVisuals(id, this.markers[id]);
+                }
                 var marker = new google.maps.Marker({
                     position: { lat: latitude, lng: longitude },
                     map: this.map
                 });
-                var listener = google.maps.event.addListener(marker, 'click', (function (marker, content, infoWindow) {
+                var listener = google.maps.event.addListener(marker, 'click', (function (marker, infoContent) {
                     return function () {
-                        infoWindow.close();
-                        infoWindow.setContent(content);
-                        infoWindow.open(_this.map, marker);
+                        _this.select(id, infoContent);
                     };
-                })(marker, this.formatContent(id, content), this.infoWindow));
+                })(marker, content));
                 this.markers[id] = new Maps.Marker(id, latitude, longitude, listener, marker);
                 return id;
+            };
+            Map.prototype.select = function (id, content) {
+                var mapMarker = this.markers[id].mapMarker;
+                this.infoWindow.close();
+                this.infoWindow.setContent(this.formatContent(id, content));
+                this.infoWindow.open(this.map, mapMarker);
+                this.selectedItem(new Maps.SelectedItem(id, Maps.MapItemType.marker));
             };
             Map.prototype.removeMarker = function (id) {
                 var marker = this.markers[id];
@@ -47,9 +56,7 @@ var torre;
                             id: marker.id
                         }
                     });
-                    google.maps.event.removeListener(marker.clickEvent);
-                    marker.mapMarker.setMap(null);
-                    delete this.markers[id];
+                    this.removeMarkerVisuals(id, marker);
                 }
             };
             Map.prototype.removeMarkersNear = function (latitude, longitude) {
@@ -73,6 +80,14 @@ var torre;
             Map.prototype.getLongWidth = function () {
                 var bounds = this.map.getBounds();
                 return bounds.getNorthEast().lng() - bounds.getSouthWest().lng();
+            };
+            Map.prototype.removeMarkerVisuals = function (id, marker) {
+                if (this.selectedItem().id === id) {
+                    this.infoWindow.close();
+                }
+                google.maps.event.removeListener(marker.clickEvent);
+                marker.mapMarker.setMap(null);
+                delete this.markers[id];
             };
             Map.prototype.formatContent = function (id, content) {
                 var html = "<div>" + content + "</div>";

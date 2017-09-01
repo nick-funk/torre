@@ -3,6 +3,13 @@
 ****************************************************************************/
 
 declare module T4TS {
+    /** Generated from torre.Areas.Api.Models.MarkerModel **/
+    export interface MarkerModel {
+        Id: string;
+        Name: string;
+        Longitude: number;
+        Latitude: number;
+    }
     /** Generated from torre.Models.Coordinate **/
     export interface Coordinate {
         Longitude: number;

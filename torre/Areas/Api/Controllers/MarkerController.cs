@@ -3,16 +3,28 @@
     using System;
     using System.Net;
     using System.Web.Mvc;
+    using AutoMapper;
     using domain.Models.Map;
     using domain.Repositories.Map;
+    using Models;
 
     public class MarkerController : Controller
     {
         private readonly IMarkerRepository _markerRepository;
+        private readonly IMapper _mapper;
 
-        public MarkerController(IMarkerRepository markerRepository)
+        public MarkerController(IMarkerRepository markerRepository, IMapper mapper)
         {
             _markerRepository = markerRepository;
+            _mapper = mapper;
+        }
+
+        [HttpGet]
+        public JsonResult Get(Guid id)
+        {
+            var marker = _markerRepository.Get(id);
+
+            return Json(_mapper.Map<MarkerModel>(marker), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -34,6 +46,18 @@
         public ActionResult Remove(Guid id)
         {
             _markerRepository.Remove(id);
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+        [HttpPost]
+        public ActionResult Update(Guid id, string name)
+        {
+            var marker = _markerRepository.Get(id);
+
+            marker.Name = name;
+
+            _markerRepository.Update(marker);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
