@@ -6,7 +6,7 @@ var torre;
         (function (Home) {
             var Index = (function () {
                 function Index(center, zoom) {
-                    this.map = new torre.Maps.Map(center.Latitude, center.Longitude, zoom, "map");
+                    this.map = new torre.Maps.Map(center.Latitude, center.Longitude, zoom, "map", true);
                     this.editor = new torre.Maps.Editor(this.map);
                     this.properties = new torre.Maps.Properties(this.map);
                     this.map.addLoader(this.loadMarkers);

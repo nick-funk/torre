@@ -92,11 +92,10 @@ var torre;
                 delete this.markers[id];
             };
             Map.prototype.formatContent = function (id, content) {
-                var html = "<div>" + content + "</div>";
+                var html = "<div>" + content + "</div><div class=\"gap\"></div>";
                 if (this.editable) {
-                    html += "<div class=\"uk-text-center uk-grid-medium\" uk-grid>\n                            <div class=\"uk-width-1-3\">\n                                <button class=\"uk-button uk-button-small uk-button-danger\" onclick=\"viewModel.map.removeMarker('" + id + "')\">Delete</button>\n                            </div>\n                            <div class=\"uk-width-1-3\">\n                                <a class=\"uk-button uk-button-small uk-button-primary\" href=\"/marker/edit/" + id + "\">Edit</a>\n                            </div>";
+                    html += "<div class=\"uk-grid-small\" uk-grid>\n                            <div class=\"uk-width-1-2\">\n                                <button class=\"uk-button uk-button-small uk-button-danger\" onclick=\"viewModel.map.removeMarker('" + id + "')\">Delete</button>\n                            </div>\n                            <div class=\"uk-width-1-2\">\n                                <a class=\"uk-button uk-button-small uk-button-primary\" href=\"/marker/edit/" + id + "\">Edit</a>\n                            </div>\n                        </div>";
                 }
-                html += "</div>";
                 return html;
             };
             return Map;

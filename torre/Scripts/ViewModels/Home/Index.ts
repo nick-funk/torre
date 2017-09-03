@@ -9,7 +9,7 @@
         private properties: Maps.Properties;
 
         constructor(center: Coordinate, zoom: number) {
-            this.map = new Maps.Map(center.Latitude, center.Longitude, zoom, "map");
+            this.map = new Maps.Map(center.Latitude, center.Longitude, zoom, "map", true);
             this.editor = new Maps.Editor(this.map);
             this.properties = new Maps.Properties(this.map);
 

@@ -122,19 +122,18 @@
         }
 
         private formatContent(id: string, content: string): string {
-            var html = `<div>${content}</div>`;
+            var html = `<div>${content}</div><div class="gap"></div>`;
 
             if (this.editable) {
-                html += `<div class="uk-text-center uk-grid-medium" uk-grid>
-                            <div class="uk-width-1-3">
+                html += `<div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-1-2">
                                 <button class="uk-button uk-button-small uk-button-danger" onclick="viewModel.map.removeMarker('${id}')">Delete</button>
                             </div>
-                            <div class="uk-width-1-3">
+                            <div class="uk-width-1-2">
                                 <a class="uk-button uk-button-small uk-button-primary" href="/marker/edit/${id}">Edit</a>
-                            </div>`;
+                            </div>
+                        </div>`;
             }
-                        
-            html += `</div>`;
 
             return html;
         }
