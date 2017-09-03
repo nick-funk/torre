@@ -13,12 +13,15 @@ var torre;
                     this.map.refresh();
                 }
                 Index.prototype.loadMarkers = function (map) {
-                    $.ajax("/map/markers", {
+                    $.ajax("/api/marker/all", {
                         success: function (markers) {
                             for (var i in markers) {
-                                var markerViewModel = markers[i];
-                                var content = "<h4>" + markerViewModel.Name + "</h4>";
-                                map.addMarker(markerViewModel.Id, markerViewModel.Latitude, markerViewModel.Longitude, content);
+                                var model = markers[i];
+                                var content = "<h4>" + model.Name + "</h4>";
+                                if (model.Content) {
+                                    content += model.Content;
+                                }
+                                map.addMarker(model.Id, model.Latitude, model.Longitude, content);
                             }
                         }
                     });

@@ -3,7 +3,9 @@ var torre;
     var Maps;
     (function (Maps) {
         var Map = (function () {
-            function Map(centerLat, centerLong, zoom, targetDiv) {
+            function Map(centerLat, centerLong, zoom, targetDiv, editable) {
+                if (editable === void 0) { editable = false; }
+                this.editable = editable;
                 this.markers = [];
                 this.loaders = [];
                 this.selectedItem = ko.observable(null);
@@ -48,7 +50,7 @@ var torre;
             };
             Map.prototype.removeMarker = function (id) {
                 var marker = this.markers[id];
-                if (marker) {
+                if (marker && this.editable) {
                     $.ajax({
                         url: "/api/marker/remove",
                         type: "POST",
@@ -56,8 +58,8 @@ var torre;
                             id: marker.id
                         }
                     });
-                    this.removeMarkerVisuals(id, marker);
                 }
+                this.removeMarkerVisuals(id, marker);
             };
             Map.prototype.removeMarkersNear = function (latitude, longitude) {
                 for (var i in this.markers) {
@@ -91,7 +93,10 @@ var torre;
             };
             Map.prototype.formatContent = function (id, content) {
                 var html = "<div>" + content + "</div>";
-                html += "<div class=\"uk-text-center uk-grid-medium\" uk-grid>\n                        <div class=\"uk-width-1-3\">\n                            <a class=\"uk-button uk-button-small uk-button-primary\" href=\"/marker/edit/" + id + "\">Edit</a>\n                        </div>\n                        <div class=\"uk-width-1-3\">\n                            <button class=\"uk-button uk-button-small uk-button-danger\" onclick=\"viewModel.map.removeMarker('" + id + "')\">Delete</button>\n                        </div>\n                     </div>";
+                if (this.editable) {
+                    html += "<div class=\"uk-text-center uk-grid-medium\" uk-grid>\n                            <div class=\"uk-width-1-3\">\n                                <button class=\"uk-button uk-button-small uk-button-danger\" onclick=\"viewModel.map.removeMarker('" + id + "')\">Delete</button>\n                            </div>\n                            <div class=\"uk-width-1-3\">\n                                <a class=\"uk-button uk-button-small uk-button-primary\" href=\"/marker/edit/" + id + "\">Edit</a>\n                            </div>";
+                }
+                html += "</div>";
                 return html;
             };
             return Map;

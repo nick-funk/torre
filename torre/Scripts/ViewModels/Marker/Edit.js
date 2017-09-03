@@ -13,18 +13,15 @@ var torre;
                     latDiv.on("change", function () { return _this.updateCenter(); });
                     longDiv.on("change", function () { return _this.updateCenter(); });
                     this.map = new torre.Maps.Map(0, 0, 15, "map");
+                    this.markerId = Uuid.create();
                     this.updateCenter();
                 }
                 Edit.prototype.updateCenter = function () {
-                    if (this.markerId) {
-                        this.map.removeMarker(this.markerId);
-                    }
                     var latDiv = $("#Latitude");
                     var longDiv = $("#Longitude");
                     var latitude = parseFloat(latDiv.val());
                     var longitude = parseFloat(longDiv.val());
                     this.map.center(latitude, longitude);
-                    this.markerId = Uuid.create();
                     this.map.addMarker(this.markerId, latitude, longitude, "");
                 };
                 return Edit;

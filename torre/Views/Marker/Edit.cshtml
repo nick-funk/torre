@@ -11,6 +11,10 @@
                 @Html.TextBoxFor(m => m.Name, new {@class = "uk-input"})
             </div>
             <div class="uk-margin">
+                @Html.LabelFor(m => m.Content)
+                @Html.TextAreaFor(m => m.Content, new { @class = "uk-input" })
+            </div>
+            <div class="uk-margin">
                 @Html.LabelFor(m => m.Longitude)
                 @Html.TextBoxFor(m => m.Longitude, new {@class = "uk-input" })
             </div>

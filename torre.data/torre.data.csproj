@@ -93,6 +93,10 @@
     <Compile Include="ITorreContext.cs" />
     <Compile Include="Mappings\Map\GeographyMappingProfile.cs" />
     <Compile Include="Mappings\Map\MarkerMappingProfile.cs" />
+    <Compile Include="Migrations\201709032301459_AddContentToMarker.cs" />
+    <Compile Include="Migrations\201709032301459_AddContentToMarker.Designer.cs">
+      <DependentUpon>201709032301459_AddContentToMarker.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Map\Marker.cs" />
     <Compile Include="Migrations\201706090026465_CreateMarker.cs" />
     <Compile Include="Migrations\201706090026465_CreateMarker.Designer.cs">
@@ -110,6 +114,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201706090026465_CreateMarker.resx">
       <DependentUpon>201706090026465_CreateMarker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709032301459_AddContentToMarker.resx">
+      <DependentUpon>201709032301459_AddContentToMarker.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

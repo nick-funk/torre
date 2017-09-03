@@ -1,9 +1,7 @@
 ﻿namespace torre.Models
 {
     using System;
-    using T4TS;
 
-    [TypeScriptInterface]
     public class MarkerViewModel
     {
         public Guid Id { get; set; }

@@ -8,6 +8,7 @@ var torre;
                 this.map = map;
                 this.map.selectedItem.subscribe(function (item) { return _this.onItemSelected(item); });
                 this.name = ko.observable("");
+                this.content = ko.observable("");
                 this.id = ko.observable("");
                 var root = document.getElementById("properties");
                 ko.applyBindings(this, root);
@@ -19,7 +20,8 @@ var torre;
                     type: "POST",
                     data: {
                         id: this.id(),
-                        name: this.name()
+                        name: this.name(),
+                        content: this.content()
                     },
                     success: function () {
                         _this.reloadMarker(_this.id());
@@ -41,6 +43,7 @@ var torre;
                     },
                     success: function (marker) {
                         _this.id(marker.Id);
+                        _this.content(marker.Content);
                         _this.name(marker.Name);
                     }
                 });
@@ -55,6 +58,9 @@ var torre;
                     },
                     success: function (marker) {
                         var content = "<h4>" + marker.Name + "</h4>";
+                        if (marker.Content) {
+                            content += marker.Content;
+                        }
                         _this.map.addMarker(id, marker.Latitude, marker.Longitude, content);
                         _this.map.select(marker.Id, content);
                     }

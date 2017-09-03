@@ -1,6 +1,7 @@
 ﻿namespace torre.Areas.Api.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Net;
     using System.Web.Mvc;
     using AutoMapper;
@@ -27,6 +28,12 @@
             return Json(_mapper.Map<MarkerModel>(marker), JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult All()
+        {
+            return Json(_mapper.Map<IEnumerable<MarkerModel>>(_markerRepository.All()), JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public ActionResult Add(Guid id, string name, double latitude, double longitude)
         {
@@ -51,11 +58,12 @@
         }
 
         [HttpPost]
-        public ActionResult Update(Guid id, string name)
+        public ActionResult Update(Guid id, string name, string content)
         {
             var marker = _markerRepository.Get(id);
 
             marker.Name = name;
+            marker.Content = content;
 
             _markerRepository.Update(marker);
 

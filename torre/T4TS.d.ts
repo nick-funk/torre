@@ -7,18 +7,12 @@ declare module T4TS {
     export interface MarkerModel {
         Id: string;
         Name: string;
+        Content: string;
         Longitude: number;
         Latitude: number;
     }
     /** Generated from torre.Models.Coordinate **/
     export interface Coordinate {
-        Longitude: number;
-        Latitude: number;
-    }
-    /** Generated from torre.Models.MarkerViewModel **/
-    export interface MarkerViewModel {
-        Id: string;
-        Name: string;
         Longitude: number;
         Latitude: number;
     }

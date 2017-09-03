@@ -1,8 +1,7 @@
 ﻿namespace torre.ViewModels.Home {
-
-    import MarkerViewModel = T4TS.MarkerViewModel;
     import Coordinate = T4TS.Coordinate;
     import Map = Maps.Map;
+    import MarkerModel = T4TS.MarkerModel;
 
     export class Index {
         private map: Maps.Map;
@@ -19,15 +18,19 @@
         }
 
         private loadMarkers(map: Map): void {
-            $.ajax("/map/markers",
+            $.ajax("/api/marker/all",
                 {
-                    success: (markers: Array<MarkerViewModel>) => {
+                    success: (markers: Array<MarkerModel>) => {
                         for (var i in markers) {
-                            var markerViewModel = markers[i];
+                            var model = markers[i];
 
-                            var content = "<h4>" + markerViewModel.Name + "</h4>";
+                            var content = "<h4>" + model.Name + "</h4>";
 
-                            map.addMarker(markerViewModel.Id, markerViewModel.Latitude, markerViewModel.Longitude, content);
+                            if (model.Content) {
+                                content += model.Content;
+                            }
+
+                            map.addMarker(model.Id, model.Latitude, model.Longitude, content);
                         }
                     }
                 });

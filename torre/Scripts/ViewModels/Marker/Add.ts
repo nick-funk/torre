@@ -16,15 +16,11 @@
 
             this.map = new Maps.Map(0, 0, 15, "map");
 
+            this.markerId = Uuid.create();
             this.updateCenter();
         }
 
         private updateCenter() {
-
-            if (this.markerId) {
-                this.map.removeMarker(this.markerId);
-            }
-
             let latDiv = $("#Latitude");
             let longDiv = $("#Longitude");
             let latitude = parseFloat(latDiv.val());
@@ -32,7 +28,6 @@
 
             this.map.center(latitude, longitude);
 
-            this.markerId = Uuid.create();
             this.map.addMarker(this.markerId, latitude, longitude, "");
         }
     }
