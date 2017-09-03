@@ -7,10 +7,12 @@
     export class Index {
         private map: Maps.Map;
         private editor: Maps.Editor;
+        private properties: Maps.Properties;
 
         constructor(center: Coordinate, zoom: number) {
             this.map = new Maps.Map(center.Latitude, center.Longitude, zoom, "map");
             this.editor = new Maps.Editor(this.map);
+            this.properties = new Maps.Properties(this.map);
 
             this.map.addLoader(this.loadMarkers);
             this.map.refresh();

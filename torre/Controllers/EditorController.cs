@@ -10,5 +10,11 @@
         {
             return PartialView(new EditorIndexModel());
         }
+
+        [HttpGet, ChildActionOnly]
+        public ActionResult Properties()
+        {
+            return PartialView("Properties");
+        }
     }
 }

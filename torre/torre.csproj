@@ -241,6 +241,7 @@
     <Content Include="T4TS.tt.settings.t4" />
     <Content Include="Views\Marker\Edit.cshtml" />
     <Content Include="Views\Editor\Index.cshtml" />
+    <Content Include="Views\Editor\Properties.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -268,6 +269,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\Maps\MapItemType.ts" />
     <TypeScriptCompile Include="Scripts\Maps\Marker.ts" />
+    <TypeScriptCompile Include="Scripts\Maps\Properties.ts" />
     <TypeScriptCompile Include="Scripts\Maps\SelectedItem.ts" />
     <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\knockout\tests\jasmine.extensions.d.ts" />
