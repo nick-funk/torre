@@ -15,16 +15,24 @@ var torre;
             }
             Properties.prototype.saveProperties = function () {
                 var _this = this;
+                var model = JSON.stringify({
+                    id: this.id(),
+                    name: this.name(),
+                    content: this.content()
+                });
                 $.ajax({
                     url: "/api/marker/update",
                     type: "POST",
-                    data: {
-                        id: this.id(),
-                        name: this.name(),
-                        content: this.content()
-                    },
-                    success: function () {
-                        _this.reloadMarker(_this.id());
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: model,
+                    success: function (marker) {
+                        var content = "<h4>" + marker.Name + "</h4>";
+                        if (marker.Content) {
+                            content += marker.Content;
+                        }
+                        _this.map.addMarker(marker.Id, marker.Latitude, marker.Longitude, content);
+                        _this.map.select(marker.Id, content);
                     }
                 });
             };
@@ -45,24 +53,6 @@ var torre;
                         _this.id(marker.Id);
                         _this.content(marker.Content);
                         _this.name(marker.Name);
-                    }
-                });
-            };
-            Properties.prototype.reloadMarker = function (id) {
-                var _this = this;
-                $.ajax({
-                    url: "/api/marker/get",
-                    type: "GET",
-                    data: {
-                        id: id
-                    },
-                    success: function (marker) {
-                        var content = "<h4>" + marker.Name + "</h4>";
-                        if (marker.Content) {
-                            content += marker.Content;
-                        }
-                        _this.map.addMarker(id, marker.Latitude, marker.Longitude, content);
-                        _this.map.select(marker.Id, content);
                     }
                 });
             };

@@ -58,7 +58,7 @@
         }
 
         [HttpPost]
-        public ActionResult Update(Guid id, string name, string content)
+        public JsonResult Update(Guid id, string name, string content)
         {
             var marker = _markerRepository.Get(id);
 
@@ -67,7 +67,7 @@
 
             _markerRepository.Update(marker);
 
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+            return Json(_mapper.Map<MarkerModel>(marker));
         }
     }
 }

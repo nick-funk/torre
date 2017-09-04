@@ -22,16 +22,28 @@
         }
 
         public saveProperties(): void {
+
+            var model = JSON.stringify({
+                id: this.id(),
+                name: this.name(),
+                content: this.content()
+            });
+
             $.ajax({
                 url: "/api/marker/update",
                 type: "POST",
-                data: {
-                    id: this.id(),
-                    name: this.name(),
-                    content: this.content()
-                },
-                success: () => {
-                    this.reloadMarker(this.id());
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: model,
+                success: (marker: MarkerModel) => {
+                    var content = `<h4>${marker.Name}</h4>`;
+
+                    if (marker.Content) {
+                        content += marker.Content;
+                    }
+
+                    this.map.addMarker(marker.Id, marker.Latitude, marker.Longitude, content);
+                    this.map.select(marker.Id, content);
                 }
             });
         }
@@ -53,26 +65,6 @@
                     this.id(marker.Id);
                     this.content(marker.Content);
                     this.name(marker.Name);
-                }
-            });
-        }
-
-        private reloadMarker(id: string) {
-            $.ajax({
-                url: "/api/marker/get",
-                type: "GET",
-                data: {
-                    id: id
-                },
-                success: (marker: MarkerModel) => {
-                    var content = `<h4>${marker.Name}</h4>`;
-
-                    if (marker.Content) {
-                        content += marker.Content;
-                    }
-
-                    this.map.addMarker(id, marker.Latitude, marker.Longitude, content);
-                    this.map.select(marker.Id, content);
                 }
             });
         }
