@@ -8,6 +8,7 @@ declare module T4TS {
         Id: string;
         Name: string;
         Content: string;
+        Icon: string;
         Longitude: number;
         Latitude: number;
     }

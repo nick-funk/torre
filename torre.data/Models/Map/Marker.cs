@@ -11,6 +11,8 @@
 
         public string Content { get; set; }
 
+        public string Icon { get; set; }
+
         public DbGeography Position { get; set; }
     }
 }

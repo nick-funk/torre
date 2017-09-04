@@ -34,13 +34,14 @@
             }
         }
 
-        public addMarker(id: string, latitude: number, longitude: number, content: string): string {
+        public addMarker(id: string, latitude: number, longitude: number, content: string, icon: string = null): string {
             if (this.markers[id]) {
                 this.removeMarkerVisuals(id, this.markers[id]);
             }
 
             var marker = new google.maps.Marker({
                 position: { lat: latitude, lng: longitude },
+                icon: icon,
                 map: this.map
             });
 
@@ -61,6 +62,7 @@
             this.infoWindow.close();
             this.infoWindow.setContent(this.formatContent(id, content));
             this.infoWindow.open(this.map, mapMarker);
+
             this.selectedItem(new SelectedItem(id, MapItemType.marker));
         }
 
@@ -122,10 +124,11 @@
         }
 
         private formatContent(id: string, content: string): string {
-            var html = `<div>${content}</div><div class="gap"></div>`;
+            var html = `<div>${content}</div>`;
 
             if (this.editable) {
-                html += `<div class="uk-grid-small" uk-grid>
+                html += `<div class="gap"></div>
+                        <div class="uk-grid-small" uk-grid>
                             <div class="uk-width-1-2">
                                 <button class="uk-button uk-button-small uk-button-danger" onclick="viewModel.map.removeMarker('${id}')">Delete</button>
                             </div>

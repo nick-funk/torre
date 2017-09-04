@@ -24,13 +24,15 @@ var torre;
                     this.loaders[i](this);
                 }
             };
-            Map.prototype.addMarker = function (id, latitude, longitude, content) {
+            Map.prototype.addMarker = function (id, latitude, longitude, content, icon) {
                 var _this = this;
+                if (icon === void 0) { icon = null; }
                 if (this.markers[id]) {
                     this.removeMarkerVisuals(id, this.markers[id]);
                 }
                 var marker = new google.maps.Marker({
                     position: { lat: latitude, lng: longitude },
+                    icon: icon,
                     map: this.map
                 });
                 var listener = google.maps.event.addListener(marker, 'click', (function (marker, infoContent) {
@@ -92,9 +94,9 @@ var torre;
                 delete this.markers[id];
             };
             Map.prototype.formatContent = function (id, content) {
-                var html = "<div>" + content + "</div><div class=\"gap\"></div>";
+                var html = "<div>" + content + "</div>";
                 if (this.editable) {
-                    html += "<div class=\"uk-grid-small\" uk-grid>\n                            <div class=\"uk-width-1-2\">\n                                <button class=\"uk-button uk-button-small uk-button-danger\" onclick=\"viewModel.map.removeMarker('" + id + "')\">Delete</button>\n                            </div>\n                            <div class=\"uk-width-1-2\">\n                                <a class=\"uk-button uk-button-small uk-button-primary\" href=\"/marker/edit/" + id + "\">Edit</a>\n                            </div>\n                        </div>";
+                    html += "<div class=\"gap\"></div>\n                        <div class=\"uk-grid-small\" uk-grid>\n                            <div class=\"uk-width-1-2\">\n                                <button class=\"uk-button uk-button-small uk-button-danger\" onclick=\"viewModel.map.removeMarker('" + id + "')\">Delete</button>\n                            </div>\n                            <div class=\"uk-width-1-2\">\n                                <a class=\"uk-button uk-button-small uk-button-primary\" href=\"/marker/edit/" + id + "\">Edit</a>\n                            </div>\n                        </div>";
                 }
                 return html;
             };

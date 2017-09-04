@@ -30,7 +30,7 @@
                                 content += model.Content;
                             }
 
-                            map.addMarker(model.Id, model.Latitude, model.Longitude, content);
+                            map.addMarker(model.Id, model.Latitude, model.Longitude, content, model.Icon);
                         }
                     }
                 });
