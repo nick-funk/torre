@@ -50,17 +50,22 @@
 
         public ICollection<Marker> All()
         {
-            return All(null, null);
+            return All(null);
         }
 
-        public ICollection<Marker> All(Point nw, Point se)
+        public ICollection<Marker> All(Bounds bounding)
         {
-            var bounds = nw != null && se != null
-                ? ComputeBounds(nw, se)
-                : ComputeBounds(new Point {Longitude = 90, Latitude = -180},
-                    new Point {Longitude = -90, Latitude = 180});
+            IQueryable<Models.Map.Marker> markers;
 
-            var markers = _context.Markers.Where(m => bounds.Intersects(m.Position));
+            if (bounding != null)
+            {
+                var bounds = ComputeBounds(bounding.NorthWest, bounding.SouthEast);
+                markers = _context.Markers.Where(m => bounds.Intersects(m.Position));
+            }
+            else
+            {
+                markers = _context.Markers;
+            }
 
             return _mapper.Map<ICollection<Marker>>(markers.ToList());
         }

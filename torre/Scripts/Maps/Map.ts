@@ -1,6 +1,7 @@
 ﻿namespace torre.Maps {
     export class Map {
         private editable: boolean;
+        private loaded: boolean;
         private map: google.maps.Map;
         private infoWindow: google.maps.InfoWindow;
         private markers: Array<Marker>;
@@ -10,6 +11,7 @@
 
         constructor(centerLat: number, centerLong: number, zoom: number, targetDiv: string, editable: boolean = false) {
             this.editable = editable;
+            this.loaded = false;
             this.markers = [];
             this.loaders = [];
             this.selectedItem = ko.observable(null);
@@ -32,6 +34,10 @@
         }
 
         public async refresh() {
+            if (!this.loaded || this.loaders.length <= 0) {
+                return;
+            }
+
             this.selectedItem(null);
 
             for (var id in this.markers) {
@@ -126,6 +132,8 @@
         }
 
         private onTilesLoaded() {
+            this.loaded = true;
+
             this.refresh();
             google.maps.event.clearListeners(this.map, "tilesloaded");
         }

@@ -41,17 +41,19 @@
         {
             return Json(_mapper.Map<IEnumerable<MarkerModel>>(
                 _markerRepository.All(
+                    new Bounds(
                         new Point
                         {
                             Latitude = nwLatitude,
                             Longitude = nwLongitude
-                        }, 
+                        },
                         new Point
                         {
                             Latitude = seLatitude,
                             Longitude = seLongitude
                         })
-                    ), JsonRequestBehavior.AllowGet);
+                       )
+                ), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

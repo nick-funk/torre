@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Map\Bounds.cs" />
     <Compile Include="Models\Map\Marker.cs" />
     <Compile Include="Models\Map\Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

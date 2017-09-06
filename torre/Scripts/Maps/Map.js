@@ -13,6 +13,7 @@ var torre;
         class Map {
             constructor(centerLat, centerLong, zoom, targetDiv, editable = false) {
                 this.editable = editable;
+                this.loaded = false;
                 this.markers = [];
                 this.loaders = [];
                 this.selectedItem = ko.observable(null);
@@ -30,6 +31,9 @@ var torre;
             }
             refresh() {
                 return __awaiter(this, void 0, void 0, function* () {
+                    if (!this.loaded || this.loaders.length <= 0) {
+                        return;
+                    }
                     this.selectedItem(null);
                     for (var id in this.markers) {
                         this.removeMarkerVisuals(id, this.markers[id]);
@@ -100,6 +104,7 @@ var torre;
                 return this.map.getBounds();
             }
             onTilesLoaded() {
+                this.loaded = true;
                 this.refresh();
                 google.maps.event.clearListeners(this.map, "tilesloaded");
             }

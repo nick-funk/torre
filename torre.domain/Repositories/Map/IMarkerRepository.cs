@@ -16,6 +16,6 @@
 
         ICollection<Marker> All();
 
-        ICollection<Marker> All(Point nw, Point se);
+        ICollection<Marker> All(Bounds bounding);
     }
 }
