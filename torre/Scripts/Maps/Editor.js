@@ -3,23 +3,23 @@ var torre;
     var Maps;
     (function (Maps) {
         var Uuid = torre.Utilities.Uuid;
-        var Editor = (function () {
-            function Editor(map) {
+        class Editor {
+            constructor(map) {
                 this.map = map;
                 this.setupMapClickEvents();
-                var root = document.getElementById("editor");
+                let root = document.getElementById("editor");
                 ko.applyBindings(this, root);
             }
-            Editor.prototype.setMode = function (mode) {
+            setMode(mode) {
                 this.mode = mode;
                 this.map.setCursor("crosshair");
-            };
-            Editor.prototype.setupMapClickEvents = function () {
+            }
+            setupMapClickEvents() {
                 var editor = this;
-                this.map.addEvent('click', function (args) { return editor.onClick(args); });
-                this.map.addEvent('rightclick', function (args) { return editor.onRightClick(args); });
-            };
-            Editor.prototype.onClick = function (args) {
+                this.map.addEvent('click', (args) => editor.onClick(args));
+                this.map.addEvent('rightclick', (args) => editor.onRightClick(args));
+            }
+            onClick(args) {
                 var latitude = args.latLng.lat();
                 var longitude = args.latLng.lng();
                 if (this.mode === "marker") {
@@ -28,13 +28,12 @@ var torre;
                 if (this.mode === "remove-marker") {
                     this.removeMarker(longitude, latitude);
                 }
-            };
-            Editor.prototype.onRightClick = function (args) {
+            }
+            onRightClick(args) {
                 this.mode = "";
                 this.map.setCursor(null);
-            };
-            Editor.prototype.addMarker = function (longitude, latitude) {
-                var _this = this;
+            }
+            addMarker(longitude, latitude) {
                 var id = Uuid.create();
                 var name = "Unknown";
                 $.ajax({
@@ -46,17 +45,16 @@ var torre;
                         latitude: latitude,
                         longitude: longitude
                     },
-                    success: function () {
-                        var content = "<h4>" + name + "</h4>";
-                        _this.map.addMarker(id, latitude, longitude, content);
+                    success: () => {
+                        var content = `<h4>${name}</h4>`;
+                        this.map.addMarker(id, latitude, longitude, content);
                     }
                 });
-            };
-            Editor.prototype.removeMarker = function (longitude, latitude) {
+            }
+            removeMarker(longitude, latitude) {
                 this.map.removeMarkersNear(latitude, longitude);
-            };
-            return Editor;
-        }());
+            }
+        }
         Maps.Editor = Editor;
     })(Maps = torre.Maps || (torre.Maps = {}));
 })(torre || (torre = {}));

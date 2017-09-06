@@ -5,27 +5,25 @@ var torre;
         var Marker;
         (function (Marker) {
             var Uuid = torre.Utilities.Uuid;
-            var Add = (function () {
-                function Add() {
-                    var _this = this;
-                    var latDiv = $("#Latitude");
-                    var longDiv = $("#Longitude");
-                    latDiv.on("change", function () { return _this.updateCenter(); });
-                    longDiv.on("change", function () { return _this.updateCenter(); });
+            class Add {
+                constructor() {
+                    let latDiv = $("#Latitude");
+                    let longDiv = $("#Longitude");
+                    latDiv.on("change", () => this.updateCenter());
+                    longDiv.on("change", () => this.updateCenter());
                     this.map = new torre.Maps.Map(0, 0, 15, "map");
                     this.markerId = Uuid.create();
                     this.updateCenter();
                 }
-                Add.prototype.updateCenter = function () {
-                    var latDiv = $("#Latitude");
-                    var longDiv = $("#Longitude");
-                    var latitude = parseFloat(latDiv.val());
-                    var longitude = parseFloat(longDiv.val());
+                updateCenter() {
+                    let latDiv = $("#Latitude");
+                    let longDiv = $("#Longitude");
+                    let latitude = parseFloat(latDiv.val());
+                    let longitude = parseFloat(longDiv.val());
                     this.map.center(latitude, longitude);
                     this.map.addMarker(this.markerId, latitude, longitude, "");
-                };
-                return Add;
-            }());
+                }
+            }
             Marker.Add = Add;
         })(Marker = ViewModels.Marker || (ViewModels.Marker = {}));
     })(ViewModels = torre.ViewModels || (torre.ViewModels = {}));

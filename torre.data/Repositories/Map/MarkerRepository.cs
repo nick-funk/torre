@@ -50,7 +50,31 @@
 
         public ICollection<Marker> All()
         {
-            return _mapper.Map<ICollection<Marker>>(_context.Markers.ToList());
+            return All(null, null);
+        }
+
+        public ICollection<Marker> All(Point nw, Point se)
+        {
+            var bounds = nw != null && se != null
+                ? ComputeBounds(nw, se)
+                : ComputeBounds(new Point {Longitude = 90, Latitude = -180},
+                    new Point {Longitude = -90, Latitude = 180});
+
+            var markers = _context.Markers.Where(m => bounds.Intersects(m.Position));
+
+            return _mapper.Map<ICollection<Marker>>(markers.ToList());
+        }
+
+        private DbGeography ComputeBounds(Point nw, Point se)
+        {
+            var ne = new Point { Latitude = nw.Latitude, Longitude = se.Longitude };
+            var sw = new Point { Latitude = se.Latitude, Longitude = nw.Longitude };
+
+            var bounds = DbGeography.PolygonFromText(
+                $"POLYGON(({nw.Longitude} {nw.Latitude}, {sw.Longitude} {sw.Latitude}, {se.Longitude} {se.Latitude}, {ne.Longitude} {ne.Latitude}, {nw.Longitude} {nw.Latitude}))",
+                4326);
+
+            return bounds;
         }
     }
 }

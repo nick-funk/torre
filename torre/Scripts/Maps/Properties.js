@@ -2,19 +2,17 @@ var torre;
 (function (torre) {
     var Maps;
     (function (Maps) {
-        var Properties = (function () {
-            function Properties(map) {
-                var _this = this;
+        class Properties {
+            constructor(map) {
                 this.map = map;
-                this.map.selectedItem.subscribe(function (item) { return _this.onItemSelected(item); });
+                this.map.selectedItem.subscribe(item => this.onItemSelected(item));
                 this.name = ko.observable("");
                 this.content = ko.observable("");
                 this.id = ko.observable("");
-                var root = document.getElementById("properties");
+                let root = document.getElementById("properties");
                 ko.applyBindings(this, root);
             }
-            Properties.prototype.saveProperties = function () {
-                var _this = this;
+            saveProperties() {
                 var model = JSON.stringify({
                     id: this.id(),
                     name: this.name(),
@@ -26,17 +24,17 @@ var torre;
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: model,
-                    success: function (marker) {
-                        var content = "<h4>" + marker.Name + "</h4>";
+                    success: (marker) => {
+                        var content = `<h4>${marker.Name}</h4>`;
                         if (marker.Content) {
                             content += marker.Content;
                         }
-                        _this.map.addMarker(marker.Id, marker.Latitude, marker.Longitude, content);
-                        _this.map.select(marker.Id, content);
+                        this.map.addMarker(marker.Id, marker.Latitude, marker.Longitude, content);
+                        this.map.select(marker.Id, content);
                     }
                 });
-            };
-            Properties.prototype.onItemSelected = function (item) {
+            }
+            onItemSelected(item) {
                 if (!item) {
                     this.clear();
                     return;
@@ -44,29 +42,27 @@ var torre;
                 if (item.type.id === Maps.MapItemType.marker.id) {
                     this.showMarkerProperties(item.id);
                 }
-            };
-            Properties.prototype.clear = function () {
+            }
+            clear() {
                 this.id(null);
                 this.name("");
                 this.content("");
-            };
-            Properties.prototype.showMarkerProperties = function (id) {
-                var _this = this;
+            }
+            showMarkerProperties(id) {
                 $.ajax({
                     url: "/api/marker/edit",
                     type: "GET",
                     data: {
                         id: id
                     },
-                    success: function (marker) {
-                        _this.id(marker.Id);
-                        _this.content(marker.Content);
-                        _this.name(marker.Name);
+                    success: (marker) => {
+                        this.id(marker.Id);
+                        this.content(marker.Content);
+                        this.name(marker.Name);
                     }
                 });
-            };
-            return Properties;
-        }());
+            }
+        }
         Maps.Properties = Properties;
     })(Maps = torre.Maps || (torre.Maps = {}));
 })(torre || (torre = {}));

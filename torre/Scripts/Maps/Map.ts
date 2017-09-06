@@ -15,6 +15,9 @@
             this.selectedItem = ko.observable(null);
 
             this.loadMap(centerLat, centerLong, zoom, targetDiv);
+
+            this.map.addListener("tilesloaded", () => this.onTilesLoaded());
+            this.map.addListener("center_changed", () => this.refresh());
         }
 
         private loadMap(centerLat: number, centerLong: number, zoom: number, targetDiv: string): void {
@@ -28,7 +31,13 @@
             this.loaders.push(loader);
         }
 
-        public refresh(): void {
+        public async refresh() {
+            this.selectedItem(null);
+
+            for (var id in this.markers) {
+                this.removeMarkerVisuals(id, this.markers[id]);
+            }
+
             for (var i = 0; i < this.loaders.length; i++) {
                 this.loaders[i](this);
             }
@@ -110,6 +119,15 @@
             var bounds = this.map.getBounds();
 
             return bounds.getNorthEast().lng() - bounds.getSouthWest().lng();
+        }
+
+        public getBounds(): google.maps.LatLngBounds {
+            return this.map.getBounds();
+        }
+
+        private onTilesLoaded() {
+            this.refresh();
+            google.maps.event.clearListeners(this.map, "tilesloaded");
         }
 
         private removeMarkerVisuals(id: string, marker: Marker): void {

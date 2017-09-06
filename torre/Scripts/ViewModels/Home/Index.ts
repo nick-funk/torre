@@ -14,26 +14,37 @@
             this.properties = new Maps.Properties(this.map);
 
             this.map.addLoader(this.loadMarkers);
-            this.map.refresh();
         }
 
         private loadMarkers(map: Map): void {
-            $.ajax("/api/marker/all",
-                {
-                    success: (markers: Array<MarkerModel>) => {
-                        for (var i in markers) {
-                            var model = markers[i];
+            var bounds = map.getBounds();
 
-                            var content = "<h4>" + model.Name + "</h4>";
+            var ne = bounds.getNorthEast();
+            var sw = bounds.getSouthWest();
 
-                            if (model.Content) {
-                                content += model.Content;
-                            }
+            $.ajax({
+                url: "/api/marker/all",
+                type: "GET",
+                data: {
+                    nwLatitude: ne.lat(),
+                    nwLongitude: sw.lng(),
+                    seLatitude: sw.lat(),
+                    seLongitude: ne.lng()
+                },
+                success: (markers: Array<MarkerModel>) => {
+                    for (var i in markers) {
+                        var model = markers[i];
 
-                            map.addMarker(model.Id, model.Latitude, model.Longitude, content, model.Icon);
+                        var content = "<h4>" + model.Name + "</h4>";
+
+                        if (model.Content) {
+                            content += model.Content;
                         }
+
+                        map.addMarker(model.Id, model.Latitude, model.Longitude, content, model.Icon);
                     }
-                });
+                }
+            });
         }
     }
 }

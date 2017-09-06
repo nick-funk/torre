@@ -37,9 +37,21 @@
         }
 
         [HttpGet]
-        public JsonResult All()
+        public JsonResult All(double nwLongitude, double nwLatitude, double seLongitude, double seLatitude)
         {
-            return Json(_mapper.Map<IEnumerable<MarkerModel>>(_markerRepository.All()), JsonRequestBehavior.AllowGet);
+            return Json(_mapper.Map<IEnumerable<MarkerModel>>(
+                _markerRepository.All(
+                        new Point
+                        {
+                            Latitude = nwLatitude,
+                            Longitude = nwLongitude
+                        }, 
+                        new Point
+                        {
+                            Latitude = seLatitude,
+                            Longitude = seLongitude
+                        })
+                    ), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

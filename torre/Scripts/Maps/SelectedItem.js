@@ -2,13 +2,12 @@ var torre;
 (function (torre) {
     var Maps;
     (function (Maps) {
-        var SelectedItem = (function () {
-            function SelectedItem(id, type) {
+        class SelectedItem {
+            constructor(id, type) {
                 this.type = type;
                 this.id = id;
             }
-            return SelectedItem;
-        }());
+        }
         Maps.SelectedItem = SelectedItem;
     })(Maps = torre.Maps || (torre.Maps = {}));
 })(torre || (torre = {}));

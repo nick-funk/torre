@@ -15,5 +15,7 @@
         void Update(Marker marker);
 
         ICollection<Marker> All();
+
+        ICollection<Marker> All(Point nw, Point se);
     }
 }

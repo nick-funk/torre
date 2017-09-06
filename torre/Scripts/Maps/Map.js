@@ -1,32 +1,45 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var torre;
 (function (torre) {
     var Maps;
     (function (Maps) {
-        var Map = (function () {
-            function Map(centerLat, centerLong, zoom, targetDiv, editable) {
-                if (editable === void 0) { editable = false; }
+        class Map {
+            constructor(centerLat, centerLong, zoom, targetDiv, editable = false) {
                 this.editable = editable;
                 this.markers = [];
                 this.loaders = [];
                 this.selectedItem = ko.observable(null);
                 this.loadMap(centerLat, centerLong, zoom, targetDiv);
+                this.map.addListener("tilesloaded", () => this.onTilesLoaded());
+                this.map.addListener("center_changed", () => this.refresh());
             }
-            Map.prototype.loadMap = function (centerLat, centerLong, zoom, targetDiv) {
+            loadMap(centerLat, centerLong, zoom, targetDiv) {
                 var centerTo = { lat: centerLat, lng: centerLong };
                 this.map = new google.maps.Map(document.getElementById(targetDiv), { zoom: zoom, center: centerTo });
                 this.infoWindow = new google.maps.InfoWindow();
-            };
-            Map.prototype.addLoader = function (loader) {
+            }
+            addLoader(loader) {
                 this.loaders.push(loader);
-            };
-            Map.prototype.refresh = function () {
-                for (var i = 0; i < this.loaders.length; i++) {
-                    this.loaders[i](this);
-                }
-            };
-            Map.prototype.addMarker = function (id, latitude, longitude, content, icon) {
-                var _this = this;
-                if (icon === void 0) { icon = null; }
+            }
+            refresh() {
+                return __awaiter(this, void 0, void 0, function* () {
+                    this.selectedItem(null);
+                    for (var id in this.markers) {
+                        this.removeMarkerVisuals(id, this.markers[id]);
+                    }
+                    for (var i = 0; i < this.loaders.length; i++) {
+                        this.loaders[i](this);
+                    }
+                });
+            }
+            addMarker(id, latitude, longitude, content, icon = null) {
                 if (this.markers[id]) {
                     this.removeMarkerVisuals(id, this.markers[id]);
                 }
@@ -35,22 +48,20 @@ var torre;
                     icon: icon,
                     map: this.map
                 });
-                var listener = google.maps.event.addListener(marker, 'click', (function (marker, infoContent) {
-                    return function () {
-                        _this.select(id, infoContent);
-                    };
+                var listener = google.maps.event.addListener(marker, 'click', ((marker, infoContent) => () => {
+                    this.select(id, infoContent);
                 })(marker, content));
                 this.markers[id] = new Maps.Marker(id, latitude, longitude, listener, marker);
                 return id;
-            };
-            Map.prototype.select = function (id, content) {
+            }
+            select(id, content) {
                 var mapMarker = this.markers[id].mapMarker;
                 this.infoWindow.close();
                 this.infoWindow.setContent(this.formatContent(id, content));
                 this.infoWindow.open(this.map, mapMarker);
                 this.selectedItem(new Maps.SelectedItem(id, Maps.MapItemType.marker));
-            };
-            Map.prototype.removeMarker = function (id) {
+            }
+            removeMarker(id) {
                 var marker = this.markers[id];
                 if (marker && this.editable) {
                     $.ajax({
@@ -62,8 +73,8 @@ var torre;
                     });
                 }
                 this.removeMarkerVisuals(id, marker);
-            };
-            Map.prototype.removeMarkersNear = function (latitude, longitude) {
+            }
+            removeMarkersNear(latitude, longitude) {
                 for (var i in this.markers) {
                     var marker = this.markers[i];
                     var radius = this.getLongWidth() / 100;
@@ -71,21 +82,28 @@ var torre;
                         this.removeMarker(marker.id);
                     }
                 }
-            };
-            Map.prototype.center = function (latitude, longitude) {
+            }
+            center(latitude, longitude) {
                 this.map.setCenter(new google.maps.LatLng(latitude, longitude));
-            };
-            Map.prototype.addEvent = function (type, handler) {
+            }
+            addEvent(type, handler) {
                 this.map.addListener(type, handler);
-            };
-            Map.prototype.setCursor = function (name) {
+            }
+            setCursor(name) {
                 this.map.setOptions({ draggableCursor: name });
-            };
-            Map.prototype.getLongWidth = function () {
+            }
+            getLongWidth() {
                 var bounds = this.map.getBounds();
                 return bounds.getNorthEast().lng() - bounds.getSouthWest().lng();
-            };
-            Map.prototype.removeMarkerVisuals = function (id, marker) {
+            }
+            getBounds() {
+                return this.map.getBounds();
+            }
+            onTilesLoaded() {
+                this.refresh();
+                google.maps.event.clearListeners(this.map, "tilesloaded");
+            }
+            removeMarkerVisuals(id, marker) {
                 if (this.selectedItem().id === id) {
                     this.infoWindow.close();
                     this.selectedItem(null);
@@ -93,16 +111,23 @@ var torre;
                 google.maps.event.removeListener(marker.clickEvent);
                 marker.mapMarker.setMap(null);
                 delete this.markers[id];
-            };
-            Map.prototype.formatContent = function (id, content) {
-                var html = "<div>" + content + "</div>";
+            }
+            formatContent(id, content) {
+                var html = `<div>${content}</div>`;
                 if (this.editable) {
-                    html += "<div class=\"gap\"></div>\n                        <div class=\"uk-grid-small\" uk-grid>\n                            <div class=\"uk-width-1-2\">\n                                <button class=\"uk-button uk-button-small uk-button-danger\" onclick=\"viewModel.map.removeMarker('" + id + "')\">Delete</button>\n                            </div>\n                            <div class=\"uk-width-1-2\">\n                                <a class=\"uk-button uk-button-small uk-button-primary\" href=\"/marker/edit/" + id + "\">Edit</a>\n                            </div>\n                        </div>";
+                    html += `<div class="gap"></div>
+                        <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-1-2">
+                                <button class="uk-button uk-button-small uk-button-danger" onclick="viewModel.map.removeMarker('${id}')">Delete</button>
+                            </div>
+                            <div class="uk-width-1-2">
+                                <a class="uk-button uk-button-small uk-button-primary" href="/marker/edit/${id}">Edit</a>
+                            </div>
+                        </div>`;
                 }
                 return html;
-            };
-            return Map;
-        }());
+            }
+        }
         Maps.Map = Map;
     })(Maps = torre.Maps || (torre.Maps = {}));
 })(torre || (torre = {}));
