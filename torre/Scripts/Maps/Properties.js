@@ -44,7 +44,7 @@ var torre;
             Properties.prototype.showMarkerProperties = function (id) {
                 var _this = this;
                 $.ajax({
-                    url: "/api/marker/get",
+                    url: "/api/marker/edit",
                     type: "GET",
                     data: {
                         id: id

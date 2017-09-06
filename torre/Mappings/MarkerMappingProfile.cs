@@ -2,6 +2,7 @@
 {
     using Areas.Api.Models;
     using AutoMapper;
+    using CommonMark;
     using domain.Models.Map;
     using Models;
 
@@ -33,8 +34,11 @@
                 }));
 
             CreateMap<Marker, MarkerModel>()
+                .ForMember(dest => dest.Content,
+                    opt => opt.ResolveUsing(src =>
+                        CommonMarkConverter.Convert(src.Content, CommonMarkSettings.Default)))
                 .ForMember(dest => dest.Longitude, opt => opt.MapFrom(src => src.Position.Longitude))
-                .ForMember(dest => dest.Latitude, opt => opt.MapFrom(src => src.Position.Latitude)); ;
+                .ForMember(dest => dest.Latitude, opt => opt.MapFrom(src => src.Position.Latitude));
         }
     }
 }

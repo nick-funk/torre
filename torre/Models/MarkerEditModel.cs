@@ -1,7 +1,9 @@
 ﻿namespace torre.Models
 {
     using System;
+    using T4TS;
 
+    [TypeScriptInterface]
     public class MarkerEditModel
     {
         public Guid Id { get; set; }

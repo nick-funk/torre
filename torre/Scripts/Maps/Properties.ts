@@ -1,5 +1,6 @@
 ﻿module torre.Maps {
     import MarkerModel = T4TS.MarkerModel;
+    import MarkerEditModel = T4TS.MarkerEditModel;
 
     export class Properties {
         private map: Maps.Map;
@@ -56,12 +57,12 @@
 
         private showMarkerProperties(id: string): void {
             $.ajax({
-                url: "/api/marker/get",
+                url: "/api/marker/edit",
                 type: "GET",
                 data: {
                     id: id
                 },
-                success: (marker: MarkerModel) => {
+                success: (marker: MarkerEditModel) => {
                     this.id(marker.Id);
                     this.content(marker.Content);
                     this.name(marker.Name);

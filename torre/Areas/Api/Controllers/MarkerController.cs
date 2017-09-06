@@ -8,6 +8,7 @@
     using domain.Models.Map;
     using domain.Repositories.Map;
     using Models;
+    using torre.Models;
 
     public class MarkerController : Controller
     {
@@ -26,6 +27,14 @@
             var marker = _markerRepository.Get(id);
 
             return Json(_mapper.Map<MarkerModel>(marker), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult Edit(Guid id)
+        {
+            var marker = _markerRepository.Get(id);
+
+            return Json(_mapper.Map<MarkerEditModel>(marker), JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

@@ -17,4 +17,13 @@ declare module T4TS {
         Longitude: number;
         Latitude: number;
     }
+    /** Generated from torre.Models.MarkerEditModel **/
+    export interface MarkerEditModel {
+        Id: string;
+        Name: string;
+        Content: string;
+        Icon: string;
+        Longitude: number;
+        Latitude: number;
+    }
 }
