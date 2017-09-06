@@ -17,7 +17,7 @@
             this.loadMap(centerLat, centerLong, zoom, targetDiv);
 
             this.map.addListener("tilesloaded", () => this.onTilesLoaded());
-            this.map.addListener("center_changed", () => this.refresh());
+            this.map.addListener("idle", () => this.refresh());
         }
 
         private loadMap(centerLat: number, centerLong: number, zoom: number, targetDiv: string): void {
@@ -131,7 +131,7 @@
         }
 
         private removeMarkerVisuals(id: string, marker: Marker): void {
-            if (this.selectedItem().id === id) {
+            if (this.selectedItem() && this.selectedItem().id === id) {
                 this.infoWindow.close();
                 this.selectedItem(null);
             }

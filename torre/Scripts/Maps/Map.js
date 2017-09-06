@@ -18,7 +18,7 @@ var torre;
                 this.selectedItem = ko.observable(null);
                 this.loadMap(centerLat, centerLong, zoom, targetDiv);
                 this.map.addListener("tilesloaded", () => this.onTilesLoaded());
-                this.map.addListener("center_changed", () => this.refresh());
+                this.map.addListener("idle", () => this.refresh());
             }
             loadMap(centerLat, centerLong, zoom, targetDiv) {
                 var centerTo = { lat: centerLat, lng: centerLong };
@@ -104,7 +104,7 @@ var torre;
                 google.maps.event.clearListeners(this.map, "tilesloaded");
             }
             removeMarkerVisuals(id, marker) {
-                if (this.selectedItem().id === id) {
+                if (this.selectedItem() && this.selectedItem().id === id) {
                     this.infoWindow.close();
                     this.selectedItem(null);
                 }
