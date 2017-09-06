@@ -5,6 +5,7 @@
     using AutoMapper;
     using domain.Repositories.Map;
     using Models;
+    using Models.Markers;
 
     public class FeaturesController : Controller
     {

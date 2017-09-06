@@ -50,9 +50,20 @@
         }
 
         private onItemSelected(item: SelectedItem): void {
+            if (!item) {
+                this.clear();
+                return;
+            }
+
             if (item.type.id === MapItemType.marker.id) {
                 this.showMarkerProperties(item.id);
             }
+        }
+
+        private clear(): void {
+            this.id(null);
+            this.name("");
+            this.content("");
         }
 
         private showMarkerProperties(id: string): void {

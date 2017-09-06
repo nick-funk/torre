@@ -115,6 +115,7 @@
         private removeMarkerVisuals(id: string, marker: Marker): void {
             if (this.selectedItem().id === id) {
                 this.infoWindow.close();
+                this.selectedItem(null);
             }
 
             google.maps.event.removeListener(marker.clickEvent);

@@ -1,10 +1,10 @@
-﻿namespace torre.Areas.Api.Models
+﻿namespace torre.Models.Markers
 {
     using System;
     using T4TS;
 
     [TypeScriptInterface]
-    public class MarkerModel
+    public class MarkerEditModel
     {
         public Guid Id { get; set; }
 

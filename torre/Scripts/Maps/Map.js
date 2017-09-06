@@ -88,6 +88,7 @@ var torre;
             Map.prototype.removeMarkerVisuals = function (id, marker) {
                 if (this.selectedItem().id === id) {
                     this.infoWindow.close();
+                    this.selectedItem(null);
                 }
                 google.maps.event.removeListener(marker.clickEvent);
                 marker.mapMarker.setMap(null);

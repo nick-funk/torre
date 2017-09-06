@@ -1,4 +1,4 @@
-﻿namespace torre.Models
+﻿namespace torre.Models.Markers
 {
     public class MarkerAddModel
     {

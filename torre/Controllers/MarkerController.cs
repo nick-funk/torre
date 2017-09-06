@@ -8,6 +8,7 @@ namespace torre.Controllers
     using domain.Models.Map;
     using domain.Repositories.Map;
     using Models;
+    using Models.Markers;
 
     public class MarkerController : Controller
     {

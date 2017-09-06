@@ -1,10 +1,10 @@
 ﻿namespace torre.Mappings
 {
-    using Areas.Api.Models;
     using AutoMapper;
     using CommonMark;
     using domain.Models.Map;
     using Models;
+    using Models.Markers;
 
     public class MarkerMappingProfile : Profile
     {

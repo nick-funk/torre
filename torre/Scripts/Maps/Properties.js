@@ -37,9 +37,18 @@ var torre;
                 });
             };
             Properties.prototype.onItemSelected = function (item) {
+                if (!item) {
+                    this.clear();
+                    return;
+                }
                 if (item.type.id === Maps.MapItemType.marker.id) {
                     this.showMarkerProperties(item.id);
                 }
+            };
+            Properties.prototype.clear = function () {
+                this.id(null);
+                this.name("");
+                this.content("");
             };
             Properties.prototype.showMarkerProperties = function (id) {
                 var _this = this;

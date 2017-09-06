@@ -159,7 +159,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
-    <Compile Include="Areas\Api\Models\MarkerModel.cs" />
+    <Compile Include="Models\Markers\MarkerModel.cs" />
     <Compile Include="Container\Assemblies.cs" />
     <Compile Include="Container\AutofaqConfig.cs" />
     <Compile Include="Areas\Api\Controllers\MarkerController.cs" />
@@ -174,10 +174,10 @@
     <Compile Include="Models\Coordinate.cs" />
     <Compile Include="Models\Editor\EditorIndexModel.cs" />
     <Compile Include="Models\MapViewModel.cs" />
-    <Compile Include="Models\MarkerAddModel.cs" />
-    <Compile Include="Models\MarkerEditModel.cs" />
-    <Compile Include="Models\MarkerIndexModel.cs" />
-    <Compile Include="Models\MarkerViewModel.cs" />
+    <Compile Include="Models\Markers\MarkerAddModel.cs" />
+    <Compile Include="Models\Markers\MarkerEditModel.cs" />
+    <Compile Include="Models\Markers\MarkerIndexModel.cs" />
+    <Compile Include="Models\Markers\MarkerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

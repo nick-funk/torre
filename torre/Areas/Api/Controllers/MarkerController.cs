@@ -7,8 +7,8 @@
     using AutoMapper;
     using domain.Models.Map;
     using domain.Repositories.Map;
-    using Models;
     using torre.Models;
+    using torre.Models.Markers;
 
     public class MarkerController : Controller
     {
